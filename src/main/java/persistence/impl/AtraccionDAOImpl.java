@@ -1,52 +1,140 @@
 package persistence.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import jdbc.ConnectionProvider;
 import model.Atraccion;
 import persistence.AtraccionDAO;
+import model.TipoDeAtraccion;
 
 public class AtraccionDAOImpl implements AtraccionDAO {
 
-	@Override
-	public List<Atraccion> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Atraccion> findAll() throws SQLException {
+		String sql = "SELECT * FROM Atracciones";
+		
+		Connection conexion = ConnectionProvider.getConnection();
+		PreparedStatement statement = conexion.prepareStatement(sql);
+		ResultSet resultados = statement.executeQuery();
+		
+		List<Atraccion> atracciones = new ArrayList<Atraccion>();
+		
+		while(resultados.next()) {
+			atracciones.add(toAtraccion(resultados));
+		}
+		
+		return atracciones;
 	}
-
-	@Override
-	public Atraccion findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public Atraccion findById(int id) throws SQLException {
+		String sql = "SELECT *\n"
+			+ "FROM Atracciones\n"
+			+ "WHERE idAtraccion = ?";
+		
+		Connection conexion = ConnectionProvider.getConnection();
+		PreparedStatement statement = conexion.prepareStatement(sql);
+		statement.setInt(1, id);
+		ResultSet resultado = statement.executeQuery();
+		
+		Atraccion atraccion = null;
+		
+		if (resultado.next() ) {    
+			atraccion = toAtraccion(resultado); 
+		} 
+		
+		return atraccion;
 	}
-
-	@Override
-	public int countAll() {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	public int countAll() throws SQLException {
+		String sql = "SELECT count(*)\n"
+				+ "FROM Atracciones\n";
+			
+		Connection conexion = ConnectionProvider.getConnection();
+		PreparedStatement statement = conexion.prepareStatement(sql);
+		ResultSet resultado = statement.executeQuery();
+		
+		resultado.next();
+		int cantidadDeAtracciones = resultado.getInt(1);
+		
+		return cantidadDeAtracciones;
 	}
-
-	@Override
-	public int insert(Atraccion t) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	public int insert(Atraccion atraccion) throws SQLException {
+		String sql = "INSERT INTO\n"
+				+ "Atracciones (nombre, costoVisita, tiempoParaRealizarla, cupoPersonas, visitantes, idTipoDeAtraccion)\n"
+				+ "VALUES (?, ?, ?, ?, ?, ?)";
+			
+		Connection conexion = ConnectionProvider.getConnection();
+		PreparedStatement statement = conexion.prepareStatement(sql);
+		statement.setString(1, atraccion.getNombre());
+		statement.setInt(2, atraccion.getCosto());
+		statement.setDouble(3, atraccion.getTiempo());
+		statement.setInt(4, atraccion.getCupoPersonas());
+		statement.setInt(5, atraccion.getVisitantes());
+		statement.setInt(6, atraccion.getTipoDeAtraccion().ordinal());
+		int filas = statement.executeUpdate();
+		
+		return filas;
 	}
+	
+	public int update(Atraccion atraccion) throws SQLException {
+		String sql = "UPDATE Atracciones\n"
+				+ "SET visitantes = ?\n"
+				+ "WHERE idAtraccion = ?;";
 
-	@Override
-	public int update(Atraccion t) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection conexion = ConnectionProvider.getConnection();
+		PreparedStatement statement = conexion.prepareStatement(sql);
+		statement.setInt(1, atraccion.getVisitantes());
+		statement.setInt(2, atraccion.getIdAtraccion());
+		int filas = statement.executeUpdate();
+		
+		return filas;
 	}
+	
+	public int delete(Atraccion atraccion) throws SQLException {
+		String sql = "DELETE FROM USERS WHERE USERNAME = ?";
+		Connection conn = ConnectionProvider.getConnection();
 
-	@Override
-	public int delete(Atraccion t) {
-		// TODO Auto-generated method stub
-		return 0;
+		PreparedStatement statement = conn.prepareStatement(sql);
+		statement.setString(1, atraccion.getNombre());
+		int rows = statement.executeUpdate();
+
+		return rows;
 	}
-
-	@Override
-	public Atraccion findByNombre(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public Atraccion findByNombre(String nombre) throws SQLException {
+		String sql = "SELECT *\n"
+				+ "FROM Atracciones\n"
+				+ "WHERE nombre = ?";
+			
+		Connection conexion = ConnectionProvider.getConnection();
+		PreparedStatement statement = conexion.prepareStatement(sql);
+		statement.setString(1, nombre);
+		ResultSet resultado = statement.executeQuery();
+		
+		Atraccion atraccion = null;
+		
+		if (resultado.next()) {
+			atraccion = toAtraccion(resultado);
+		}
+		
+		return atraccion;
 	}
-
+		
+	private Atraccion toAtraccion(ResultSet resultado) throws SQLException {
+		
+		return new Atraccion(
+			resultado.getInt("idAtraccion"),
+			resultado.getInt("costoVisita"),
+			resultado.getDouble("tiempoParaRealizarla"),
+			resultado.getInt("cupoPersonas"),
+			TipoDeAtraccion.values()[resultado.getInt("idTipoDeAtraccion")-1],
+			resultado.getString("nombre"),
+			resultado.getInt("visitantes")
+		);
+	}
 }
