@@ -7,6 +7,7 @@ import java.util.List;
 public abstract class Promocion implements Sugeribles {
 
 	private int idPromocion;
+	private boolean eliminado;
 	private String nombre;
 	private String descripcion;
 	private String imagen;
@@ -39,6 +40,14 @@ public abstract class Promocion implements Sugeribles {
 
 	public void setIdPromocion(int idPromocion) {
 		this.idPromocion = idPromocion;
+	}
+
+	public boolean estaEliminado() {
+		return this.eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 
 	public String getNombre() {
