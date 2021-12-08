@@ -1,32 +1,19 @@
 package model;
 
-public class TipoDeAtraccion {
+public enum TipoDeAtraccion {
 
-	private int idTipoDeAtraccion;
-	private String nombre;
-	
-	public TipoDeAtraccion(int idTipoDeAtraccion, String nombre) {
-		this.idTipoDeAtraccion = idTipoDeAtraccion;
-		this.nombre = nombre;
-	}
-	
-	public TipoDeAtraccion(String nombre) {
-		this(0, nombre);
+	AVENTURA("Atracción de aventura"),
+	PAISAJE("Atracción de paisaje"),
+	DEGUSTACION("Atracción de degustación");
+
+	private final String descripcion;
+
+	private TipoDeAtraccion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
-	public int getIdTipoDeAtraccion() {
-		return idTipoDeAtraccion;
-	}
-
-	public void setIdTipoDeAtraccion(int idTipoDeAtraccion) {
-		this.idTipoDeAtraccion = idTipoDeAtraccion;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	@Override
+	public String toString() {
+		return this.descripcion;
 	}
 }
