@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Atraccion implements Sugeribles {
 
 	private int idAtraccion;
+	private boolean eliminado;
 	private String nombre;
 	private String descripcion;
 	private String imagen;
@@ -46,6 +47,14 @@ public class Atraccion implements Sugeribles {
 
 	public void setIdAtraccion(int idAtraccion) {
 		this.idAtraccion = idAtraccion;
+	}
+
+	public boolean estaEliminado() {
+		return this.eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 
 	public String getNombre() {

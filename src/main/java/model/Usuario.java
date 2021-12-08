@@ -4,8 +4,9 @@ import java.util.Objects;
 
 public class Usuario {
 
-	private int idUsuario = 0;
-	private boolean esAdmin = false;
+	private int idUsuario;
+	private boolean eliminado;
+	private boolean esAdmin;
 	private String nombre;
 	private int presupuesto;
 	private double tiempoDisponible;
@@ -42,7 +43,15 @@ public class Usuario {
 		this.idUsuario = idUsuario;
 	}
 
-	public boolean isEsAdmin() {
+	public boolean estaEliminado() {
+		return this.eliminado;
+	}
+	
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
+	}
+
+	public boolean esAdmin() {
 		return esAdmin;
 	}
 

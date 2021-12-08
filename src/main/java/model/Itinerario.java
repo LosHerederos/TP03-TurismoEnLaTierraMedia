@@ -70,9 +70,26 @@ public class Itinerario {
 		}
 		sugerencia.agregarVisitante();
 	}
-	
+
 	public int costoTotal() {
 		int total = 0;
+		for (Atraccion atraccion: this.atracciones) {
+			total += atraccion.getCosto();
+		}
+		for (Promocion promocion: this.promociones) {
+			total += promocion.getCosto();
+		}
+		return total;
+	}
+	
+	public double tiempoTotal() {
+		double total = 0.0;
+		for (Atraccion atraccion: this.atracciones) {
+			total += atraccion.getTiempo();
+		}
+		for (Promocion promocion: this.promociones) {
+			total += promocion.getTiempo();
+		}
 		return total;
 	}
 }
