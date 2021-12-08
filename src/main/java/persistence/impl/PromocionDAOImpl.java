@@ -122,13 +122,13 @@ public class PromocionDAOImpl implements PromocionDAO {
 		
 		int idPromocion = resultado.getInt("idPromocion");
 		String nombre = resultado.getString("nombre");
-		String tipoDePromocion = resultado.getString("tipoDePromocion");
+		String descripcion = resultado.getString("descripcion");
 		String imagen = resultado.getString("imagen");
 		int costoTotal = resultado.getInt("costoTotal");
 		
 		
 		
-		if (tipoDePromocion.equals("PromocionAbsoluta")) {
+		if (descripcion.equals("PromocionAbsoluta")) {
 			int idPromocionAbsoluta = resultado.getInt("idPromocionAbsoluta");
 			int descuento = resultado.getInt("descuento");
 			
@@ -138,30 +138,34 @@ public class PromocionDAOImpl implements PromocionDAO {
 				descripcion,
 				imagen,
 				atracciones,
-				tipoDeAtraccion,
+				TipoDeAtraccion.values()[resultado.getInt("idTipoDeAtraccion")-1],
 				costoTotal	
 			);
-		} else if (tipoDePromocion.equals("PromocionAXB")) {
+		} else if (descripcion.equals("PromocionAXB")) {
 			int idPromocionAXB = resultado.getInt("idPromocionAXB");
 			List<Atraccion> atraccionesPagas = new ArrayList<Atraccion>();
 //			atraccionesPagas
 			
 			promocion = new PromocionAXB(
 				idPromocion,
-				idPromocionAXB,
+				descripcion,
 				nombre,
+				imagen,
 				atracciones,
+				TipoDeAtraccion.values()[resultado.getInt("idTipoDeAtraccion")-1],
 				atraccionesPagas
 			);
-		} else if (tipoDePromocion.equals("PromocionPorcentual")) {
+		} else if (descripcion.equals("PromocionPorcentual")) {
 			int idPromocionPorcentual = resultado.getInt("idPromocionPorcentual");
 			double porcentaje = resultado.getDouble("porcentuajeDeDescuento");
 			
 			promocion = new PromocionPorcentual(
 				idPromocion,
-				idPromocionPorcentual,
 				nombre,
+				descripcion,
+				imagen,
 				atracciones,
+				TipoDeAtraccion.values()[resultado.getInt("idTipoDeAtraccion")-1],
 				porcentaje
 			);
 		}
