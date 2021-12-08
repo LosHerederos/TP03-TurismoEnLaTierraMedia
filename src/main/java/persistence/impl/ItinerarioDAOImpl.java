@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdbc.ConnectionProvider;
+import persistence.commons.ConnectionProvider;
+import persistence.commons.MissingDataException;
 import model.Atraccion;
 import model.Itinerario;
 import model.Promocion;
@@ -41,6 +42,7 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 
 	@Override
 	public int update(Itinerario itinerario) throws SQLException {
+		try {
 		int idItinerario = itinerario.getIdItinerario();
 		int idAtraccion, idPromocion;
 		List<Atraccion> atracciones = itinerario.getAtracciones();
@@ -63,6 +65,9 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		}
 
 		return filas;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
 	@Override
@@ -72,7 +77,8 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 	}
 
 	@Override
-	public void findAtracciones(Itinerario itinerario, List<Atraccion> todasLasAtracciones) throws SQLException {
+	public void findAtracciones(Itinerario itinerario, List<Atraccion> todasLasAtracciones) {
+		try {
 		String sql = "SELECT *\n"
 				+ "FROM AtraccionesDeItinerario\n"
 				+ "WHERE idItinerario = ?;";
@@ -95,10 +101,14 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 				itinerario.getAtracciones().add(atraccion);
 			}
 		}
+	} catch (Exception e) {
+		throw new MissingDataException(e);
+	}
 	}
 
 	@Override
-	public void findPromociones(Itinerario itinerario, List<Promocion> todasLasPromociones) throws SQLException {
+	public void findPromociones(Itinerario itinerario, List<Promocion> todasLasPromociones) {
+		try {
 		String sql = "SELECT *\n"
 				+ "FROM PromocionesDeItinerarios\n"
 				+ "WHERE idItinerario = ?;";
@@ -120,11 +130,15 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 			if (idsPromociones.contains(idPromocion)) {
 				itinerario.getPromociones().add(promocion);
 			}
+		} 
+		} catch (Exception e) {
+			throw new MissingDataException(e);
 		}
 	}
 	
 	@Override
-	public boolean existeAtraccionDeItinerario(int idItinerario, int idAtraccion) throws SQLException {
+	public boolean existeAtraccionDeItinerario(int idItinerario, int idAtraccion) {
+		try {
 		String sql = "SELECT count(*) AS 'cantidad'\n"
 				+ "FROM AtraccionesDeItinerario\n"
 				+ "WHERE idItinerario = ? AND idAtraccion = ?\n";
@@ -139,10 +153,14 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		int cantidad = resultado.getInt("cantidad");
 
 		return cantidad > 0;
+	} catch (Exception e) {
+		throw new MissingDataException(e);
+	}
 	}
 
 	@Override
-	public boolean existePromocionDeItinerario(int idItinerario, int idPromocion) throws SQLException {
+	public boolean existePromocionDeItinerario(int idItinerario, int idPromocion) {
+		try {
 		String sql = "SELECT count(*) AS 'cantidad'\n"
 				+ "FROM PromocionesDeItinerarios\n"
 				+ "WHERE idItinerario = ? AND idPromocion = ?\n";
@@ -157,9 +175,13 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		int cantidad = resultado.getInt("cantidad");
 
 		return cantidad > 0;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
-	private int insertAtraccionDeItinerario(int idItinerario, int idAtraccion) throws SQLException {
+	private int insertAtraccionDeItinerario(int idItinerario, int idAtraccion) {
+		try {
 		String sql = "INSERT INTO AtraccionesDeItinerario"
 				+ "(idItinerario, idAtraccion)"
 				+ "VALUES (?, ?)";
@@ -171,9 +193,13 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		int filas = statement.executeUpdate();
 		
 		return filas;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 	
-	private int insertPromocionDeItinerario(int idItinerario, int idPromocion) throws SQLException {
+	private int insertPromocionDeItinerario(int idItinerario, int idPromocion) {
+		try {
 		String sql = "INSERT INTO PromocionesDeItinerarios"
 				+ "(idItinerario, idPromocion)"
 				+ "VALUES (?, ?)";
@@ -185,6 +211,9 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		int filas = statement.executeUpdate();
 		
 		return filas;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
 }

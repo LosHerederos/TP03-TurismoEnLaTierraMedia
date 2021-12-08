@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdbc.ConnectionProvider;
+import persistence.commons.ConnectionProvider;
+import persistence.commons.MissingDataException;
 import model.Atraccion;
 import model.Promocion;
 import persistence.PromocionDAO;
@@ -19,7 +20,8 @@ import model.TipoDeAtraccion;
 public class PromocionDAOImpl implements PromocionDAO {
 
 	@Override
-	public List<Promocion> findAll() throws SQLException {
+	public List<Promocion> findAll() {
+		try {
 		String sql = "SELECT *\n"
 				+ "FROM Promociones\n"
 				+ "LEFT JOIN PromocionAbsoluta ON (PromocionAbsoluta.idPromocion = Promociones.idPromocion)\n"
@@ -37,6 +39,9 @@ public class PromocionDAOImpl implements PromocionDAO {
 		}
 
 		return promociones;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
 	@Override
@@ -71,6 +76,7 @@ public class PromocionDAOImpl implements PromocionDAO {
 	
 	@Override
 	public List<Promocion> findAll(List<Atraccion> todasLasAtracciones) throws SQLException {
+		try {
 		String sql = "SELECT\n"
 				+ "	Promociones.*,\n"
 				+ "	PromocionAbsoluta.idPromocionAbsoluta,\n"
@@ -98,6 +104,9 @@ public class PromocionDAOImpl implements PromocionDAO {
 		}
 
 		return promociones;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
 	@Override
@@ -107,12 +116,17 @@ public class PromocionDAOImpl implements PromocionDAO {
 	}
 	
 	private Promocion toPromocion(ResultSet resultado) throws SQLException {
+		try {
 		Promocion promocion = null;
 		List<Atraccion> atracciones = new ArrayList<Atraccion>();
 		
 		int idPromocion = resultado.getInt("idPromocion");
 		String nombre = resultado.getString("nombre");
 		String tipoDePromocion = resultado.getString("tipoDePromocion");
+		String imagen = resultado.getString("imagen");
+		int costoTotal = resultado.getInt("costoTotal");
+		
+		
 		
 		if (tipoDePromocion.equals("PromocionAbsoluta")) {
 			int idPromocionAbsoluta = resultado.getInt("idPromocionAbsoluta");
@@ -120,10 +134,12 @@ public class PromocionDAOImpl implements PromocionDAO {
 			
 			promocion = new PromocionAbsoluta(
 				idPromocion,
-				idPromocionAbsoluta,
 				nombre,
+				descripcion,
+				imagen,
 				atracciones,
-				descuento
+				tipoDeAtraccion,
+				costoTotal	
 			);
 		} else if (tipoDePromocion.equals("PromocionAXB")) {
 			int idPromocionAXB = resultado.getInt("idPromocionAXB");
@@ -151,9 +167,13 @@ public class PromocionDAOImpl implements PromocionDAO {
 		}
 		
 		return promocion;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 	
 	private void findAtracciones(Promocion promocion, List<Atraccion> todasLasAtracciones) throws SQLException {
+		try {
 		String sql = "SELECT *\n"
 				+ "FROM AtraccionesDePromociones\n"
 				+ "WHERE idPromocion = ? AND NOT promocionNoGeneral;";
@@ -206,7 +226,10 @@ public class PromocionDAOImpl implements PromocionDAO {
 				}
 			}
 		}
-
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
+		
 
 }

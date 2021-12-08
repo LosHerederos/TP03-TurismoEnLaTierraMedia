@@ -7,14 +7,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdbc.ConnectionProvider;
+import persistence.commons.ConnectionProvider;
+import persistence.commons.MissingDataException;
 import model.Atraccion;
 import persistence.AtraccionDAO;
 import model.TipoDeAtraccion;
 
 public class AtraccionDAOImpl implements AtraccionDAO {
 
-	public List<Atraccion> findAll() throws SQLException {
+	public List<Atraccion> findAll()  {
+		try {
 		String sql = "SELECT * FROM Atracciones";
 		
 		Connection conexion = ConnectionProvider.getConnection();
@@ -28,9 +30,13 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		}
 		
 		return atracciones;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 	
-	public Atraccion findById(int id) throws SQLException {
+	public Atraccion findById(int id) {
+		try {
 		String sql = "SELECT *\n"
 			+ "FROM Atracciones\n"
 			+ "WHERE idAtraccion = ?";
@@ -47,9 +53,13 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		} 
 		
 		return atraccion;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 	
 	public int countAll() throws SQLException {
+		try {
 		String sql = "SELECT count(*)\n"
 				+ "FROM Atracciones\n";
 			
@@ -61,9 +71,13 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		int cantidadDeAtracciones = resultado.getInt(1);
 		
 		return cantidadDeAtracciones;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 	
-	public int insert(Atraccion atraccion) throws SQLException {
+	public int insert(Atraccion atraccion) {
+		try {
 		String sql = "INSERT INTO\n"
 				+ "Atracciones (nombre, costoVisita, tiempoParaRealizarla, cupoPersonas, visitantes, idTipoDeAtraccion)\n"
 				+ "VALUES (?, ?, ?, ?, ?, ?)";
@@ -79,9 +93,13 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		int filas = statement.executeUpdate();
 		
 		return filas;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 	
-	public int update(Atraccion atraccion) throws SQLException {
+	public int update(Atraccion atraccion) {
+		try {
 		String sql = "UPDATE Atracciones\n"
 				+ "SET visitantes = ?\n"
 				+ "WHERE idAtraccion = ?;";
@@ -93,9 +111,13 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		int filas = statement.executeUpdate();
 		
 		return filas;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 	
-	public int delete(Atraccion atraccion) throws SQLException {
+	public int delete(Atraccion atraccion) {
+		try {
 		String sql = "DELETE FROM USERS WHERE USERNAME = ?";
 		Connection conn = ConnectionProvider.getConnection();
 
@@ -104,9 +126,13 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		int rows = statement.executeUpdate();
 
 		return rows;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 	
-	public Atraccion findByNombre(String nombre) throws SQLException {
+	public Atraccion findByNombre(String nombre) {
+		try {
 		String sql = "SELECT *\n"
 				+ "FROM Atracciones\n"
 				+ "WHERE nombre = ?";
@@ -123,18 +149,26 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		}
 		
 		return atraccion;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 		
-	private Atraccion toAtraccion(ResultSet resultado) throws SQLException {
-		
+	private Atraccion toAtraccion(ResultSet resultado) {
+		try {
 		return new Atraccion(
 			resultado.getInt("idAtraccion"),
+			resultado.getString("nombre"),
+			resultado.getString("descripcion"),
+			resultado.getString("imagen"),
 			resultado.getInt("costoVisita"),
 			resultado.getDouble("tiempoParaRealizarla"),
 			resultado.getInt("cupoPersonas"),
-			TipoDeAtraccion.values()[resultado.getInt("idTipoDeAtraccion")-1],
-			resultado.getString("nombre"),
-			resultado.getInt("visitantes")
+			resultado.getInt("visitantes"),
+			TipoDeAtraccion.values()[resultado.getInt("idTipoDeAtraccion")-1]
 		);
+	}  catch (Exception e) {
+		throw new MissingDataException(e);
+		}		
 	}
 }

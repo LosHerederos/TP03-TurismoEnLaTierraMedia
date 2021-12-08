@@ -26,7 +26,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		itinerarioDAO = persistence.commons.DAOFactory.getItinerarioDAO();
 	}
 
-	public List<Usuario> findAll() throws SQLException {
+	public List<Usuario> findAll() {
+		try {
 		String sql = "SELECT *\n"
 				+ "FROM Usuarios\n"
 				+ "JOIN Itinerarios\n"
@@ -43,9 +44,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 
 		return usuarios;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
-	public Usuario findById(int id) throws SQLException {
+	public Usuario findById(int id) {
+		try {
 		String sql = "SELECT *\n"
 				+ "FROM Usuarios\n"
 				+ "JOIN Itinerarios\n"
@@ -64,9 +69,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 
 		return usuario;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
-	public int countAll() throws SQLException {
+	public int countAll() {
+		try {
 		String sql = "SELECT count(*)\n"
 				+ "FROM Usuarios\n";
 
@@ -78,9 +87,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		int cantidadDeUsuarios = resultado.getInt(1);
 
 		return cantidadDeUsuarios;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
-	public int insert(Usuario usuario) throws SQLException {
+	public int insert(Usuario usuario) {
+		try {
 		String sql = "INSERT INTO\n"
 				+ "Usuarios (nombre, presupuesto, tiempoDisponible, idTipoDeAtraccion)\n"
 				+ "VALUES (?, ?, ?, ?)";
@@ -94,9 +107,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		int filas = statement.executeUpdate();
 
 		return filas;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
-	public int update(Usuario usuario) throws SQLException {
+	public int update(Usuario usuario) {
+		try {
 		String sql = "UPDATE Usuarios\n"
 				+ "SET presupuesto = ?,\n"
 				+ "tiempoDisponible = ?\n"
@@ -112,9 +129,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		this.itinerarioDAO.update(usuario.getItinerario());
 
 		return filas;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
-	public int delete(Usuario usuario) throws SQLException {
+	public int delete(Usuario usuario) {
+		try {
 		String sql = "DELETE FROM USERS WHERE USERNAME = ?";
 		Connection conn = ConnectionProvider.getConnection();
 
@@ -123,9 +144,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		int rows = statement.executeUpdate();
 
 		return rows;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 	
-	public List<Usuario> findAll(List<Atraccion> todasLasAtracciones, List<Promocion> todasLasPromociones) throws SQLException {
+	public List<Usuario> findAll(List<Atraccion> todasLasAtracciones, List<Promocion> todasLasPromociones)  {
+		try {
 		List<Usuario> usuarios = this.findAll();
 
 		for (Usuario usuario: usuarios) {
@@ -134,6 +159,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 		
 		return usuarios;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+		
 	}
 
 	@Override
@@ -162,8 +191,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 	}
 
-	private Usuario toUsuario(ResultSet resultado) throws SQLException {
-
+	private Usuario toUsuario(ResultSet resultado) {
+		try {
 		return new Usuario(
 			resultado.getInt("idUsuario"),
 			resultado.getBoolean("esAdmin"),
@@ -173,5 +202,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			null,
 			new Itinerario(resultado.getInt("idItinerario"))
 		);
+	} catch (Exception e) {
+		throw new MissingDataException(e);
+	}
 	}
 }
