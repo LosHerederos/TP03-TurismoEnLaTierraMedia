@@ -22,7 +22,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	
 	private persistence.ItinerarioDAO itinerarioDAO;
 	
-	UsuarioDAOImpl () {
+	public UsuarioDAOImpl () {
 		itinerarioDAO = persistence.commons.DAOFactory.getItinerarioDAO();
 	}
 
