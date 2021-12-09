@@ -3,27 +3,26 @@ package persistence.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import persistence.commons.DAOFactory;
-import persistence.ItinerarioDAO;
 import model.Atraccion;
 import model.Itinerario;
 import model.Promocion;
 import model.Usuario;
 import model.nullobjects.UsuarioNulo;
+import persistence.ItinerarioDAO;
 import persistence.UsuarioDAO;
 import persistence.commons.ConnectionProvider;
+import persistence.commons.DAOFactory;
 import persistence.commons.MissingDataException;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
 	
-	private persistence.ItinerarioDAO itinerarioDAO;
+	private ItinerarioDAO itinerarioDAO;
 	
 	public UsuarioDAOImpl () {
-		itinerarioDAO = persistence.commons.DAOFactory.getItinerarioDAO();
+		itinerarioDAO = DAOFactory.getItinerarioDAO();
 	}
 
 	public List<Usuario> findAll() {
