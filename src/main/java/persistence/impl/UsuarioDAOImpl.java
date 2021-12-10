@@ -9,6 +9,7 @@ import java.util.List;
 import model.Atraccion;
 import model.Itinerario;
 import model.Promocion;
+import model.TipoDeAtraccion;
 import model.Usuario;
 import model.nullobjects.UsuarioNulo;
 import persistence.ItinerarioDAO;
@@ -18,31 +19,31 @@ import persistence.commons.DAOFactory;
 import persistence.commons.MissingDataException;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
-	
+
 	private ItinerarioDAO itinerarioDAO;
-	
+
 	public UsuarioDAOImpl () {
 		itinerarioDAO = DAOFactory.getItinerarioDAO();
 	}
 
 	public List<Usuario> findAll() {
 		try {
-		String sql = "SELECT *\n"
+			String sql = "SELECT *\n"
 				+ "FROM Usuarios\n"
 				+ "JOIN Itinerarios\n"
 				+ "ON Usuarios.idUsuario = Itinerarios.idUsuario";
 
-		Connection conexion = ConnectionProvider.getConnection();
-		PreparedStatement statement = conexion.prepareStatement(sql);
-		ResultSet resultados = statement.executeQuery();
-		
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		
-		while(resultados.next()) {
-			usuarios.add(toUsuario(resultados));
-		}
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			ResultSet resultados = statement.executeQuery();
 
-		return usuarios;
+			List<Usuario> usuarios = new ArrayList<Usuario>();
+
+			while(resultados.next()) {
+				usuarios.add(toUsuario(resultados));
+			}
+
+			return usuarios;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
@@ -50,24 +51,24 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public Usuario findById(int id) {
 		try {
-		String sql = "SELECT *\n"
+			String sql = "SELECT Usuarios.*, Itinerarios.idItinerario\n"
 				+ "FROM Usuarios\n"
 				+ "JOIN Itinerarios\n"
 				+ "ON  Usuarios.idUsuario = Itinerarios.idUsuario\n"
 				+ "WHERE Usuarios.idUsuario = ?";
-		
-		Connection conexion = ConnectionProvider.getConnection();
-		PreparedStatement statement = conexion.prepareStatement(sql);
-		statement.setInt(1, id);
-		ResultSet resultado = statement.executeQuery();
-		
-		Usuario usuario = null;
-		
-		if (resultado.next() ) {    
-			usuario = toUsuario(resultado); 
-		}
 
-		return usuario;
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			statement.setInt(1, id);
+			ResultSet resultado = statement.executeQuery();
+
+			Usuario usuario = UsuarioNulo.build();
+
+			if (resultado.next() ) {
+				usuario = toUsuario(resultado); 
+			}
+
+			return usuario;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
@@ -75,17 +76,17 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public int countAll() {
 		try {
-		String sql = "SELECT count(*)\n"
+			String sql = "SELECT count(*)\n"
 				+ "FROM Usuarios\n";
 
-		Connection conexion = ConnectionProvider.getConnection();
-		PreparedStatement statement = conexion.prepareStatement(sql);
-		ResultSet resultado = statement.executeQuery();
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			ResultSet resultado = statement.executeQuery();
 
-		resultado.next();
-		int cantidadDeUsuarios = resultado.getInt(1);
+			resultado.next();
+			int cantidadDeUsuarios = resultado.getInt(1);
 
-		return cantidadDeUsuarios;
+			return cantidadDeUsuarios;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
@@ -93,19 +94,19 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public int insert(Usuario usuario) {
 		try {
-		String sql = "INSERT INTO\n"
+			String sql = "INSERT INTO\n"
 				+ "Usuarios (nombre, presupuesto, tiempoDisponible, idTipoDeAtraccion)\n"
 				+ "VALUES (?, ?, ?, ?)";
 
-		Connection conexion = ConnectionProvider.getConnection();
-		PreparedStatement statement = conexion.prepareStatement(sql);
-		statement.setString(1, usuario.getNombre());
-		statement.setInt(2, usuario.getPresupuesto());
-		statement.setDouble(3, usuario.getTiempoDisponible());
-		statement.setInt(4, usuario.getTipoFavorito().ordinal());
-		int filas = statement.executeUpdate();
-
-		return filas;
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			statement.setString(1, usuario.getNombre());
+			statement.setInt(2, usuario.getPresupuesto());
+			statement.setDouble(3, usuario.getTiempoDisponible());
+			statement.setInt(4, usuario.getTipoFavorito().ordinal());
+			int filas = statement.executeUpdate();
+	
+			return filas;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
@@ -116,15 +117,18 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		String sql = "UPDATE Usuarios\n"
 				+ "SET presupuesto = ?,\n"
 				+ "tiempoDisponible = ?\n"
+				+ "idTipoDeAtraccion = ?\n"
 				+ "WHERE idUsuario = ?;";
-		
+
 		Connection conexion = ConnectionProvider.getConnection();
 		PreparedStatement statement = conexion.prepareStatement(sql);
 		statement.setInt(1, usuario.getPresupuesto());
 		statement.setDouble(2, usuario.getTiempoDisponible());
-		statement.setInt(3, usuario.getIdUsuario());
+		statement.setInt(3, usuario.getTipoFavorito().ordinal());
+		statement.setInt(4, usuario.getIdUsuario());
+
 		int filas = statement.executeUpdate();
-		
+
 		this.itinerarioDAO.update(usuario.getItinerario());
 
 		return filas;
@@ -189,20 +193,43 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			throw new MissingDataException(e);
 		}
 	}
-
-	private Usuario toUsuario(ResultSet resultado) {
+	
+	public int updatePresupuestoYTiempoDisponible(Usuario usuario) {
 		try {
-		return new Usuario(
-			resultado.getInt("idUsuario"),
-			resultado.getBoolean("esAdmin"),
-			resultado.getString("nombre"),
-			resultado.getInt("presupuesto"), 
-			resultado.getDouble("tiempoDisponible"),
-			null,
-			new Itinerario(resultado.getInt("idItinerario"))
-		);
-	} catch (Exception e) {
-		throw new MissingDataException(e);
+		String sql = "UPDATE Usuarios\n"
+				+ "SET presupuesto = ?,\n"
+				+ "tiempoDisponible = ?\n"
+				+ "WHERE idUsuario = ?;";
+		
+		Connection conexion = ConnectionProvider.getConnection();
+		PreparedStatement statement = conexion.prepareStatement(sql);
+		statement.setInt(1, usuario.getPresupuesto());
+		statement.setDouble(2, usuario.getTiempoDisponible());
+		statement.setInt(3, usuario.getIdUsuario());
+		int filas = statement.executeUpdate();
+		
+		this.itinerarioDAO.update(usuario.getItinerario());
+
+		return filas;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
+
+	private Usuario toUsuario(ResultSet resultado) {		
+		try {
+			Itinerario itinerario = itinerarioDAO.findById(resultado.getInt("idItinerario"));
+			return new Usuario(
+				resultado.getInt("idUsuario"),
+				resultado.getBoolean("esAdmin"),
+				resultado.getString("nombre"),
+				resultado.getInt("presupuesto"), 
+				resultado.getDouble("tiempoDisponible"),
+				TipoDeAtraccion.values()[resultado.getInt("idTipoDeAtraccion")-1],
+				itinerario
+			);
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 }

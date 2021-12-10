@@ -12,7 +12,7 @@ public class ConnectionProvider {
 
 	private static String url;
 	private static Connection connection;
-	
+
 	static {
 		Properties properties = new Properties();
 		try {
@@ -22,7 +22,7 @@ public class ConnectionProvider {
 		}
 		url = properties.getProperty("datasource");
 	}
-	
+
 	public static Properties readPropertiesFile(String fileName) {
 		FileInputStream fis = null;
 		Properties prop = null;
@@ -43,7 +43,7 @@ public class ConnectionProvider {
 		}
 		return prop;
 	}
-	
+
 	public static Connection getConnection() throws SQLException {
 		try {
 			Class.forName("org.sqlite.JDBC");

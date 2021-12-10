@@ -18,4 +18,5 @@ bin/
 *.db-journal
 
 # Ignorar archivo env.properties
-env.properties
+*/env.properties
+src/main/resources/env.properties
