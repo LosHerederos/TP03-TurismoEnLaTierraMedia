@@ -3,75 +3,102 @@ package persistence.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import persistence.commons.ConnectionProvider;
-import persistence.commons.MissingDataException;
 import model.Atraccion;
 import model.Itinerario;
 import model.Promocion;
+import persistence.AtraccionDAO;
 import persistence.ItinerarioDAO;
+import persistence.PromocionDAO;
+import persistence.commons.ConnectionProvider;
+import persistence.commons.DAOFactory;
+import persistence.commons.MissingDataException;
 
 public class ItinerarioDAOImpl implements ItinerarioDAO {
 
+	private AtraccionDAO atraccionDAO;
+	private PromocionDAO promocionDAO;
+
+	public ItinerarioDAOImpl() {
+		atraccionDAO = DAOFactory.getAtraccionDAO();
+		promocionDAO = DAOFactory.getPromocionDAO();
+	}
+
 	@Override
 	public List<Itinerario> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Itinerario findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int countAll() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int insert(Itinerario t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int update(Itinerario itinerario) throws SQLException {
 		try {
-		int idItinerario = itinerario.getIdItinerario();
-		int idAtraccion, idPromocion;
-		List<Atraccion> atracciones = itinerario.getAtracciones();
-		List<Promocion> promociones = itinerario.getPromociones();
-
-		int filas = 0;
-
-		for (Atraccion atraccion : atracciones) {
-			idAtraccion = atraccion.getIdAtraccion();
-			if (!existeAtraccionDeItinerario(idItinerario, idAtraccion)) {
-				filas += insertAtraccionDeItinerario(idItinerario, idAtraccion);
-			}
-		}
-
-		for (Promocion promocion : promociones) {
-			idPromocion = promocion.getIdPromocion();
-			if (!existePromocionDeItinerario(idItinerario, idPromocion)) {
-				filas += insertPromocionDeItinerario(idItinerario, idPromocion);
-			}
-		}
-
-		return filas;
+			List<Itinerario> itinerarios = new ArrayList<Itinerario>();
+			return itinerarios;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
 	}
 
 	@Override
-	public int delete(Itinerario t) {
+	public Itinerario findById(int id) {
+		try {
+			List<Atraccion> atracciones;
+			Itinerario itinerario = new Itinerario(id);
+			return itinerario;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+
+	@Override
+	public int countAll() {
+		try {
+			int cantidadDeItinerarios = 0;
+			return cantidadDeItinerarios;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+
+	@Override
+	public int insert(Itinerario itinerario) {
+		try {
+			int filas = 0;
+			return filas;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+
+	@Override
+	public int update(Itinerario itinerario) {
+		try {
+			int idItinerario = itinerario.getIdItinerario();
+			int idAtraccion, idPromocion;
+			List<Atraccion> atracciones = itinerario.getAtracciones();
+			List<Promocion> promociones = itinerario.getPromociones();
+
+			int filas = 0;
+
+			for (Atraccion atraccion : atracciones) {
+				idAtraccion = atraccion.getIdAtraccion();
+				if (!existeAtraccionDeItinerario(idItinerario, idAtraccion)) {
+					filas += insertAtraccionDeItinerario(idItinerario, idAtraccion);
+				}
+			}
+
+			for (Promocion promocion : promociones) {
+				idPromocion = promocion.getIdPromocion();
+				if (!existePromocionDeItinerario(idItinerario, idPromocion)) {
+					filas += insertPromocionDeItinerario(idItinerario, idPromocion);
+				}
+			}
+
+			return filas;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+
+	@Override
+	public int delete(Itinerario itinerario) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

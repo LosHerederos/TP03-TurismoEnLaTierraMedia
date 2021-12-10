@@ -1,15 +1,17 @@
 -- Carga de datos 1
 
--- Carga de Tipo de Atraccion
-INSERT INTO "TipoDeAtraccion" (
+-- Carga de Usuario Administrador
+INSERT INTO "Usuarios" (
+	"esAdmin",
 	"nombre",
-	"descripcion"
+	"presupuesto",
+	"tiempoDisponible",
+	"idTipoDeAtraccion"
 )
 VALUES
--- nombre: text, descripcion: text
-	('Aventura', 'Aventura'),
-	('Paisaje', 'Paisaje'),
-	('Degustacion', 'Degustación')
+-- esAdmin: integer, nombre: text, presupuesto: integer, tiempoDisponible: real, idTipoDeAtraccion: integer
+	(1, 'Admin', 1000, 12.0, 1)
+
 ;
 
 -- Carga de Usuarios
@@ -36,39 +38,45 @@ VALUES
 	(1),
 	(2),
 	(3),
-	(4)
+	(4),
+	(5)
 ;
 
 -- Carga de Atracciones
 INSERT INTO "Atracciones" (
 	"nombre",
+	"descripcion",
+	"imagen",
 	"costoVisita",
 	"tiempoParaRealizarla",
 	"cupoPersonas",
 	"idTipoDeAtraccion"
 )
 VALUES
--- nombre: text, tiempoParaRealizarla: real, visitantes: integer, cupoPersonas: integer, idTipoDeAtraccion: integer
-	('Moria', 10, 2.0, 6, 1),
-	('Minas Tirith', 5, 2.5, 25, 2),
-	('La Comarca', 3, 6.5, 150, 3),
-	('Mordor', 25, 3.0, 4, 1),
-	('Abismo del Helm', 5, 2.0, 15, 2),
-	('Lothlórien', 35, 1.0, 30, 3),
-	('Erebor', 12, 3.0, 32, 2),
-	('Bosque Negro', 3, 4.0, 12, 1)
+-- nombre: text, descripcion: text, imagen: text, costoVisita: integer, tiempoParaRealizarla: real, cupoPersonas: integer, idTipoDeAtraccion: integer
+	('Moria', 'Moria. Lorem ipsum dolor sit amet.', 'atraccion.jpg', 10, 2.0, 6, 1),
+	('Minas Tirith', 'Minas Tirith. Lorem ipsum dolor sit amet.', 'atraccion.jpg', 5, 2.5, 25, 2),
+	('La Comarca', 'La Comarca. Lorem ipsum dolor sit amet.', 'atraccion.jpg', 3, 6.5, 150, 3),
+	('Mordor', 'Mordor. Lorem ipsum dolor sit amet.', 'atraccion.jpg', 25, 3.0, 4, 1),
+	('Abismo del Helm', 'Abismo del Helm. Lorem ipsum dolor sit amet.', 'atraccion.jpg', 5, 2.0, 15, 2),
+	('Lothlórien', 'Lothlórien. Lorem ipsum dolor sit amet.', 'atraccion.jpg', 35, 1.0, 30, 3),
+	('Erebor', 'Erebor. Lorem ipsum dolor sit amet.', 'atraccion.jpg', 12, 3.0, 32, 2),
+	('Bosque Negro', 'Bosque Negro. Lorem ipsum dolor sit amet.', 'atraccion.jpg', 3, 4.0, 12, 1)
 ;
 
 -- Carga de Promociones base
 INSERT INTO "Promociones" (
 	"nombre",
+	"descripcion",
+	"imagen",
+	"idTipoDeAtraccion",
 	"tipoDePromocion"
 )
 VALUES
--- nombre: text, tipoDePromocion: text
-	('Pack aventura', 'PromocionPorcentual'),
-	('Pack degustación', 'PromocionAbsoluta'),
-	('Pack paisajes', 'PromocionAXB') 
+-- nombre: text, descripcion: text, imagen: text, idTipoDeAtraccion: integer, tipoDePromocion: text
+	('Pack aventura', 'Pack aventura. Lorem ipsum dolor sit amet.', 'promocion.jpg', 1, 'PromocionPorcentual'),
+	('Pack degustación', 'Pack degustación. Lorem ipsum dolor sit amet.', 'promocion.jpg', 3, 'PromocionAbsoluta'),
+	('Pack paisajes', 'Pack paisajes. Lorem ipsum dolor sit amet.', 'promocion.jpg', 2, 'PromocionAXB') 
 ;
 
 -- Carga de Atracciones de Promociones
@@ -88,30 +96,21 @@ VALUES
 -- Carga de Promociones absolutas
 INSERT INTO "PromocionAbsoluta" (
 	"idPromocion",
-	"descuento"
+	"costoTotal"
 )
 VALUES
--- idPromocion: integer, descuento: integer
+-- idPromocion: integer, costoTotal: integer
 	(2, 36)
 ;
 
 -- Carga de Promociones Porcentuales
 INSERT INTO "PromocionPorcentual" (
 	"idPromocion",
-	"porcentuajeDeDescuento"
+	"porcentaje"
 )
 VALUES
--- idPromocion: integer, porcentuajeDeDescuento: real
+-- idPromocion: integer, porcentaje: real
 	(1, 0.2)
-;
-
--- Carga de Promociones AxB
-INSERT INTO "PromocionAXB" (
-	"idPromocion"
-)
-VALUES
--- idPromocion: integer
-	(3)
 ;
 
 -- Carga de Atracciones de Promociones AxB
