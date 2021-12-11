@@ -163,9 +163,9 @@ public class Atraccion implements Sugeribles {
 
 	@Override
 	public String toString() {
-		return this.nombre
-				+ "\t\t\t" + this.tipoDeAtraccion
-				+ "\t    " + this.costoVisita
-				+ "\t\t    " + this.tiempoParaRealizarla;
+		return "Nombre: " + this.getNombre() + ", "
+				+ "Tipo: " + this.getTipoDeAtraccion() + ", "
+				+ "Costo: " + this.getCosto() + ", "
+				+ "Tiempo: " + this.tiempoParaRealizarla + ".";
 	}
 }

@@ -136,7 +136,7 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Nombre: " + this.nombre + "\t\tTipo de favorito: " + this.tipoFavorito + "\n"
+		return "Nombre: " + this.nombre + ", Tipo de favorito: " + this.tipoFavorito + "\n"
 				+ this.itinerario;
 	}
 }

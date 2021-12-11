@@ -128,4 +128,18 @@ public abstract class Promocion implements Sugeribles {
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		String listadoDeAtracciones = "[";
+		for (Atraccion atraccion : atracciones) {
+			listadoDeAtracciones += atraccion.getNombre() + ", ";
+		}
+		listadoDeAtracciones += "]";
+		return "Nombre: " + this.getNombre() + ", "
+				+ "Tipo: " + this.getTipoDeAtraccion() + ", "
+				+ "Costo: " + this.getCosto() + ", "
+				+ "Tiempo: " + this.getTiempo() + "."
+				+ "\nAtracciones: " + listadoDeAtracciones;
+	}
 }
