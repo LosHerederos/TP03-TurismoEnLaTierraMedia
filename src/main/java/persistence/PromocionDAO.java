@@ -9,6 +9,6 @@ import persistence.commons.GenericDAO;
 
 public interface PromocionDAO extends GenericDAO<Promocion> {
 
-	List<Promocion> findAll(List<Atraccion> todasLasAtracciones) throws SQLException;
+	List<Promocion> findAll(List<Atraccion> todasLasAtracciones);
 	Promocion findByNombre(String nombre);
 }

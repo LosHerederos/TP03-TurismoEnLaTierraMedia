@@ -120,6 +120,6 @@ INSERT INTO "AtraccionesDePromociones" (
 	"promocionNoGeneral"
 )
 VALUES
-	(1, 2, 1),
-	(1, 5, 1)
+	(3, 2, 1),
+	(3, 5, 1)
 ;

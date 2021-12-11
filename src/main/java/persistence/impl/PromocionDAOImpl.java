@@ -3,7 +3,6 @@ package persistence.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +12,19 @@ import model.PromocionAXB;
 import model.PromocionAbsoluta;
 import model.PromocionPorcentual;
 import model.TipoDeAtraccion;
+import persistence.AtraccionDAO;
 import persistence.PromocionDAO;
 import persistence.commons.ConnectionProvider;
+import persistence.commons.DAOFactory;
 import persistence.commons.MissingDataException;
 
 public class PromocionDAOImpl implements PromocionDAO {
+	
+	AtraccionDAO atraccionDAO;
+	
+	public PromocionDAOImpl() {
+		this.atraccionDAO = DAOFactory.getAtraccionDAO();
+	}
 
 	@Override
 	public List<Promocion> findAll() {
@@ -159,11 +166,23 @@ public class PromocionDAOImpl implements PromocionDAO {
 			throw new MissingDataException(e);
 		}
 	}
-	
+
+	public List<Promocion> findByResultSet(ResultSet resultados) {
+		try {
+			List<Promocion> promociones = new ArrayList<Promocion>();
+			
+			while(resultados.next()) {
+				promociones.add(findById(resultados.getInt("idPromocion")));
+			}
+			return promociones;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+
 	private Promocion toPromocion(ResultSet resultado) {
 		try {
 			Promocion promocion = null;
-			List<Atraccion> atracciones = new ArrayList<Atraccion>();
 		
 			int idPromocion = resultado.getInt("idPromocion");
 			String tipoDePromocion = resultado.getString("tipoDePromocion");
@@ -172,6 +191,8 @@ public class PromocionDAOImpl implements PromocionDAO {
 			String imagen = resultado.getString("imagen");
 			int idTipoDeAtraccion = resultado.getInt("idTipoDeAtraccion");
 			boolean eliminado = resultado.getBoolean("eliminado");
+			
+			List<Atraccion> atracciones = findAtracciones(idPromocion, false);
 
 			if (tipoDePromocion.equals("PromocionAbsoluta")) {
 				int costoTotal = resultado.getInt("costoTotal");
@@ -186,7 +207,7 @@ public class PromocionDAOImpl implements PromocionDAO {
 					costoTotal	
 				);
 			} else if (tipoDePromocion.equals("PromocionAXB")) {
-				List<Atraccion> atraccionesPagas = new ArrayList<Atraccion>();
+				List<Atraccion> atraccionesPagas = findAtracciones(idPromocion, true);
 
 				promocion = new PromocionAXB(
 					idPromocion,
@@ -211,6 +232,29 @@ public class PromocionDAOImpl implements PromocionDAO {
 				);
 			}
 			return promocion;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+	
+	private List<Atraccion> findAtracciones(int idPromocion, boolean promocionNoGeneral) {
+		try {
+			String sql;
+			if (!promocionNoGeneral) {
+				sql = "SELECT *\n"
+					+ "FROM AtraccionesDePromociones\n"
+					+ "WHERE idPromocion = ? AND NOT promocionNoGeneral;";
+			} else {
+				sql = "SELECT *\n"
+					+ "FROM AtraccionesDePromociones\n"
+					+ "WHERE idPromocion = ? AND promocionNoGeneral;";
+			}
+			
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			statement.setInt(1, idPromocion);
+			ResultSet resultados = statement.executeQuery();
+			return atraccionDAO.findByResultSet(resultados);
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}

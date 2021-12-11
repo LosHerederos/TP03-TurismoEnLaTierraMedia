@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import model.Atraccion;
 import model.Promocion;
 import persistence.commons.ConnectionProvider;
 import persistence.commons.DAOFactory;
@@ -43,6 +44,9 @@ public class PromocionDAOTest {
 
 		for (Promocion promocion : promociones) {
 			System.out.println(promocion);
+			for (Atraccion atraccion : promocion.getAtracciones()) {
+				System.out.println("\t" + atraccion);
+			}
 		}
 	}
 
