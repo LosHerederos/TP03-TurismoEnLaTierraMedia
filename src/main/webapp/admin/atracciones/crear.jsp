@@ -1,4 +1,4 @@
-%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -13,11 +13,11 @@
 
 		<c:if test="${atraccion != null && !atraccion.isValid()}">
 			<div class="alert alert-danger">
-				<p>Se encontraron errores al crear la atracción.</p>
+				<p>Se encontraron errores al crear la atracciÃ³n.</p>
 			</div>
 		</c:if>
 
-		<form action="/TP03-TurismoEnLaTierraMedia/admin/crear.do" method="post">
+		<form action="/TP03-TurismoEnLaTierraMedia/admin/atracciones/crear.do" method="get">
 			<jsp:include page="/admin/atracciones/atraccion.jsp"></jsp:include>
 		</form>
 	</main>

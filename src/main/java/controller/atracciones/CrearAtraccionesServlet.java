@@ -44,12 +44,12 @@ public class CrearAtraccionesServlet extends HttpServlet {
 		Atraccion atraccion = atraccionService.crear(nombre,descripcion,imagen, costoVisita, tiempoParaRealizarla, cupoPersonas,visitantes,tipoDeAtraccion);
 		
 		if (atraccion.isValid()) {
-			resp.sendRedirect("/TP03-TurismoEnLaTierraMedia/admin/index.do");
+			resp.sendRedirect("/TP03-TurismoEnLaTierraMedia/admin/atracciones/index.do");
 		} else {
 			req.setAttribute("atraccion", atraccion);
 
 			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/TP03-TurismoEnLaTierraMedia/admin/crear.jsp");
+					.getRequestDispatcher("/admin/atracciones/crear.jsp");
 			dispatcher.forward(req, resp);
 		}
 

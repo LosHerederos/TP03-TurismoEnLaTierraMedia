@@ -16,5 +16,7 @@
 	Hola administrador
 	<br>
 	<a href="<c:url value="/admin/usuarios/index.do"></c:url>">Listar usuarios</a>
+	<br>
+	<a href="<c:url value="/admin/atracciones/index.do"></c:url>">abm atracciones</a>
 </body>
 </html>
