@@ -32,13 +32,13 @@
 			<h1>Estas son las atracciones de la Tierra Media</h1>
 		</div>
 
-<%-- 		<c:if test="${user.isAdmin()}"> --%>
-<!-- 			<div class="mb-3"> -->
-<!-- 				<a href="/turismo/attractions/create.do" class="btn btn-primary" -->
-<!-- 					role="button"> <i class="bi bi-plus-lg"></i> Nueva Atracción -->
-<!-- 				</a> -->
-<!-- 			</div> -->
-<%-- 		</c:if> --%>
+		
+			<div class="mb-3">
+				<a href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/crear.do" class="btn btn-primary"
+					role="button"> <i class="bi bi-plus-lg"></i> Nueva Atracción
+				</a>
+			</div>
+		
 		<table class="table table-stripped table-hover">
 			<thead>
 				<tr>
@@ -64,17 +64,17 @@
 						<td><c:out value="${atraccion.cupoPersonas}"></c:out></td>
 						<td><c:out value="${atraccion.visitantes}"></c:out></td>
 						<td><c:out value="${atraccion.tipoDeAtraccion}"></c:out></td>
-						<%-- <td><c:out value="${attraction.duration}"></c:out></td>
+						<td><c:out value="${attraction.duration}"></c:out></td>
 						<td><c:out value="${attraction.capacity}"></c:out></td>
 
-						<td><c:if test="${user.admin}">
-								<a href="/turismo/attractions/edit.do?id=${attraction.id}"
+						<td>
+								<a href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/editar.do?id=${atraccion.idAtraccion}"
 									class="btn btn-light rounded-0" role="button"><i
 									class="bi bi-pencil-fill"></i></a>
-								<a href="/turismo/attractions/delete.do?id=${attraction.id}"
+								<a href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/borrar.do?id=${atraccion.idAtraccion}"
 									class="btn btn-danger rounded" role="button"><i
 									class="bi bi-x-circle-fill"></i></a>
-							</c:if> 
+							
 							
 							<c:choose>
 								<c:when
@@ -86,7 +86,7 @@
 									<a href="#" class="btn btn-secondary rounded disabled"
 										role="button">No se puede comprar</a>
 								</c:otherwise>
-							</c:choose></td> --%>
+							</c:choose></td>
 					</tr>
 				</c:forEach>
 			</tbody>

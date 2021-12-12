@@ -12,10 +12,8 @@
 			<ul class="navbar-nav me-auto mb-2 mb-md-0">
 				<li class="nav-item"><a class="nav-link active"
 					aria-current="page" href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/index.do">Atracciones</a></li>
-					<c:if test="${user.isAdmin()}">
 						<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="/TP03-TurismoEnLaTierraMedia/admin/usuarios/index.do">Usuarios</a></li>
-					</c:if>
 			</ul>
 			<ul class="navbar-nav">
 				<li class="nav-item dropdown">
