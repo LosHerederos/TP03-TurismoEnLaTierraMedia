@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Atraccion;
 import services.AtraccionService;
 
-@WebServlet("/attractions/index.do")
+@WebServlet("/admin/atracciones/index.do")
 public class ListarAtraccionesServlet  extends HttpServlet implements Servlet {
 
 	private static final long serialVersionUID = -8346640902238722429L;
@@ -28,11 +28,11 @@ public class ListarAtraccionesServlet  extends HttpServlet implements Servlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		List<Atraccion> atracciones = atraccionService.list();
+		List<Atraccion> atracciones = atraccionService.listar();
 		req.setAttribute("atracciones", atracciones);
 
 		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/views/attractions/index.jsp");
+				.getRequestDispatcher("/admin/atracciones/index.jsp");
 		dispatcher.forward(req, resp);
 
 	}

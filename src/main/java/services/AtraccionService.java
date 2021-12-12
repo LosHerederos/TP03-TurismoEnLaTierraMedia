@@ -8,14 +8,12 @@ import persistence.AtraccionDAO;
 import persistence.commons.DAOFactory;
 
 public class AtraccionService {
+	
+	public Atraccion alta(String nombre, String descripcion, String imagen, int costoVisita,
+			double tiempoParaRealizarla, int cupoPersonas, int visitantes, TipoDeAtraccion tipoDeAtraccion) {
 
-	public List<Atraccion> list() {
-		return DAOFactory.getAtraccionDAO().findAll();
-	}
-
-	public Atraccion alta(String nombre, String descripcion, String imagen, int costoVisita, double tiempoParaRealizarla, int cupoPersonas, int visitantes, TipoDeAtraccion tipoDeAtraccion) {
-
-		Atraccion atraccion = new Atraccion(0,nombre, descripcion, imagen, costoVisita,tiempoParaRealizarla,cupoPersonas,visitantes,tipoDeAtraccion);
+		Atraccion atraccion = new Atraccion(0, nombre, descripcion, imagen, costoVisita, tiempoParaRealizarla,
+				cupoPersonas, visitantes, tipoDeAtraccion);
 
 		if (atraccion.isValid()) {
 			AtraccionDAO atraccionDao = DAOFactory.getAtraccionDAO();
@@ -26,7 +24,8 @@ public class AtraccionService {
 		return atraccion;
 	}
 
-	public Atraccion modificacion(int idatraccion,String nombre, String descripcion, String imagen, int costoVisita, double tiempoParaRealizarla, int cupoPersonas, int visitantes, TipoDeAtraccion tipoDeAtraccion) {
+	public Atraccion modificacion(int idatraccion, String nombre, String descripcion, String imagen, int costoVisita,
+			double tiempoParaRealizarla, int cupoPersonas, int visitantes, TipoDeAtraccion tipoDeAtraccion) {
 
 		AtraccionDAO atraccionDao = DAOFactory.getAtraccionDAO();
 		Atraccion atraccion = atraccionDao.findById(idatraccion);
@@ -48,15 +47,18 @@ public class AtraccionService {
 		return atraccion;
 	}
 
-	public void delete(Integer idAtraccion) {
+	public void baja(Integer idAtraccion) {
 		Atraccion atraccion = new Atraccion(idAtraccion, "", "", "", 0, 0.0, 0, 0, null);
-
 		AtraccionDAO atraccionDao = DAOFactory.getAtraccionDAO();
 		atraccionDao.delete(atraccion);
 	}
 
-	public Atraccion find(Integer idAtraccion) {
+	public Atraccion buscar(Integer idAtraccion) {
 		return DAOFactory.getAtraccionDAO().findById(idAtraccion);
+	}
+	
+	public List<Atraccion> listar() {
+		return DAOFactory.getAtraccionDAO().findAll();
 	}
 
 }
