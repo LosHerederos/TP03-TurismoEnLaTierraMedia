@@ -211,8 +211,8 @@ public class PromocionDAOImpl implements PromocionDAO {
 
 				promocion = new PromocionAXB(
 					idPromocion,
-					descripcion,
 					nombre,
+					descripcion,
 					imagen,
 					atracciones,
 					TipoDeAtraccion.values()[idTipoDeAtraccion-1],
