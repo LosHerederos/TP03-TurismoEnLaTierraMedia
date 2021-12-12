@@ -24,11 +24,10 @@ public class AtraccionService {
 		return atraccion;
 	}
 
-	public Atraccion editar(int idatraccion, String nombre, String descripcion, String imagen, int costoVisita,
+	public Atraccion editar(int idAtraccion, String nombre, String descripcion, String imagen, int costoVisita,
 			double tiempoParaRealizarla, int cupoPersonas, int visitantes, TipoDeAtraccion tipoDeAtraccion) {
-
 		AtraccionDAO atraccionDao = DAOFactory.getAtraccionDAO();
-		Atraccion atraccion = atraccionDao.findById(idatraccion);
+		Atraccion atraccion = atraccionDao.findById(idAtraccion);
 
 		atraccion.setNombre(nombre);
 		atraccion.setDescripcion(descripcion);

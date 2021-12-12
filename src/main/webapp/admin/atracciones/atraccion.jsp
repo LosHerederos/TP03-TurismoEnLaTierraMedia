@@ -15,7 +15,8 @@
 		type="text" class="form-control" id="imagen" name="imagen"
 		required value="${atraccion.imagen}">
 </div>
-<div class="mb-3">
+//Falla autenticacion
+<%-- <div class="mb-3">
 	<label for="costoVisita"
 		class='col-form-label ${atraccion.esValido.get("costoVisita") != null ? "is-invalid" : "" }'>Costo:</label>
 	<input class="form-control" type="number" id="costoVisita" name="costoVisita"
@@ -51,7 +52,7 @@
 	<div class="invalid-feedback">
 		<c:out value='${atraccion.esValido.get("visitantes")}'></c:out>
 	</div>
-</div>
+</div> --%>
 <div class="mb-3">
 	<label for="tipoDeAtraccion" class="col-form-label">Tipo:</label> <input
 		type="text" class="form-control" id="tipoDeAtraccion" name="tipoDeAtraccion"

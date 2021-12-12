@@ -1,18 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Administrador</title>
-	
-
-	<link rel="shortcut icon" href="assets/img/favicon.ico">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/datatables.min.css">
+<jsp:include page="/partials/head.jsp"></jsp:include>
 </head>
 <body>
-	Hola administrador
+	<jsp:include page="/partials/nav.jsp"></jsp:include>
+
+	<main class="container">
+
+		<c:if test="${atraccion != null && !atraccion.isValid()}">
+			<div class="alert alert-danger">
+				<p>Se encontraron errores al actualizar la atracción.</p>
+			</div>
+		</c:if>
+
+		<form action="/TP03-TurismoEnLaTierraMedia/admin/atracciones/editar.do" method="post">
+			<input type="hidden" name="id" value="${attraction.id}">
+			<jsp:include page="/admin/atracciones/atraccion.jsp"></jsp:include>
+		</form>
+	</main>
 </body>
 </html>
