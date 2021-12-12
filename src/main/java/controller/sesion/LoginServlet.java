@@ -34,15 +34,12 @@ public class LoginServlet extends HttpServlet {
 
 		if (!usuario.esNulo()) {
 			req.getSession().setAttribute("usuario", usuario);
-			if(usuario.esAdmin()) {
-				resp.sendRedirect("/TP03-TurismoEnLaTierraMedia/admin/index.jsp");
-			}else {
+			if (usuario.esAdmin())
+				resp.sendRedirect("admin/index.jsp");
+			else
 				resp.sendRedirect("index.jsp");
-			}
-			
 		} else {
 			req.setAttribute("flash", "Nombre de usuario es incorrecto");
-
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
 			dispatcher.forward(req, resp);
 		}

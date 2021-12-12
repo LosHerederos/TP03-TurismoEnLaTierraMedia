@@ -8,15 +8,20 @@
 	<title>Administrador</title>
 	
 
-	<link rel="shortcut icon" href="assets/img/favicon.ico">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/datatables.min.css">
+	<link rel="shortcut icon" href="<c:url value="/assets/img/favicon.ico"></c:url>">
+	<link rel="stylesheet" href="<c:url value="/assets/css/bootstrap.min.css"></c:url>">
+	<link rel="stylesheet" href="<c:url value="/assets/css/datatables.min.css"></c:url>">
 </head>
 <body>
-	Hola administrador
-	<br>
-	<a href="<c:url value="/admin/usuarios/index.do"></c:url>">Listar usuarios</a>
-	<br>
-	<a href="<c:url value="/admin/atracciones/index.do"></c:url>">abm atracciones</a>
+	<jsp:include page="/partials/nav.jsp"></jsp:include>
+	<main class="container">
+		<h1>Hola administrador</h1>
+		<ul>
+			<li><a href="<c:url value="/admin/usuarios/index.do"></c:url>">Listar usuarios</a></li>
+			<li><a href="<c:url value="/admin/atracciones/index.do"></c:url>">Listar atracciones</a></li>
+			<li><a href="<c:url value="/admin/promociones/index.do"></c:url>">Listar promociones</a></li>
+		</ul>
+	</main>
+	<jsp:include page="/partials/scripts.jsp"></jsp:include>
 </body>
 </html>

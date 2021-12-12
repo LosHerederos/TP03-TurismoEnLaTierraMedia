@@ -76,4 +76,15 @@ public class PromocionAXB extends Promocion {
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		String listadoDeAtraccionesPagas = "[";
+		for (Atraccion atraccion : atraccionesPagas) {
+			listadoDeAtraccionesPagas += atraccion.getNombre() + ", ";
+		}
+		listadoDeAtraccionesPagas += "]";
+		return super.toString()
+				+ "\nAtracciones Pagas: " + listadoDeAtraccionesPagas;
+	}
 }
