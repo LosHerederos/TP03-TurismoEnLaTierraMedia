@@ -185,7 +185,7 @@ public class Atraccion implements Sugeribles {
 			esValido.put("tiempo", "Debe ser positivo");
 		}
 		if (tiempoParaRealizarla > 60) {
-			esValido.put("tiempoa", "Excede el tiempo máximo");
+			esValido.put("tiempo", "Excede el tiempo máximo");
 		}
 		if (cupoPersonas <= 0) {
 			esValido.put("Cupo", "Debe ser positivo");

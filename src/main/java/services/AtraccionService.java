@@ -37,7 +37,6 @@ public class AtraccionService {
 		atraccion.setCupoPersonas(cupoPersonas);
 		atraccion.setVisitantes(visitantes);
 		atraccion.setTipoDeAtraccion(tipoDeAtraccion);
-
 		if (atraccion.isValid()) {
 			atraccionDao.update(atraccion);
 			// XXX: si no devuelve "1", es que hubo más errores

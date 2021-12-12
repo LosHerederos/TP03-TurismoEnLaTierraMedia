@@ -15,44 +15,43 @@
 		type="text" class="form-control" id="imagen" name="imagen"
 		required value="${atraccion.imagen}">
 </div>
-//Falla autenticacion
-<%-- <div class="mb-3">
+<div class="mb-3">
 	<label for="costoVisita"
-		class='col-form-label ${atraccion.esValido.get("costoVisita") != null ? "is-invalid" : "" }'>Costo:</label>
+		class='col-form-label ${atraccion.getErrors().get("costoVisita") != null ? "is-invalid" : "" }'>costoVisita:</label>
 	<input class="form-control" type="number" id="costoVisita" name="costoVisita"
 		required value="${atraccion.costoVisita}"></input>
 	<div class="invalid-feedback">
-		<c:out value='${atraccion.esValido.get("costoVisita")}'></c:out>
+		<c:out value='${atraccion.getErrors().get("costoVisita")}'></c:out>
 	</div>
 </div>
 
 <div class="mb-3">
 	<label for="tiempoParaRealizarla"
-		class='col-form-label ${atraccion.esValido.get("tiempoParaRealizarla") != null ? "is-invalid" : "" }'>Tiempo:</label>
+		class='col-form-label ${atraccion.getErrors().get("tiempoParaRealizarla") != null ? "is-invalid" : "" }'>Tiempo:</label>
 	<input class="form-control" type="number" id="tiempoParaRealizarla" name="tiempoParaRealizarla"
 		required value="${atraccion.tiempoParaRealizarla}"></input>
 	<div class="invalid-feedback">
-		<c:out value='${atraccion.esValido.get("tiempoParaRealizarla")}'></c:out>
+		<c:out value='${atraccion.getErrors().get("tiempoParaRealizarla")}'></c:out>
 	</div>
 </div>
 <div class="mb-3">
 	<label for="cupoPersonas"
-		class='col-form-label ${atraccion.esValido.get("cupoPersonas") != null ? "is-invalid" : "" }'>Cupo:</label>
+		class='col-form-label ${atraccion.getErrors().get("cupoPersonas") != null ? "is-invalid" : "" }'>Cupo:</label>
 	<input class="form-control" type="number" id="cupoPersonas" name="cupoPersonas"
 		required value="${atraccion.cupoPersonas}"></input>
 	<div class="invalid-feedback">
-		<c:out value='${atraccion.esValido.get("cupoPersonas")}'></c:out>
+		<c:out value='${atraccion.getErrors().get("cupoPersonas")}'></c:out>
 	</div>
 </div>
 <div class="mb-3">
 	<label for="visitantes"
-		class='col-form-label ${atraccion.esValido.get("visitantes") != null ? "is-invalid" : "" }'>visitantes:</label>
+		class='col-form-label ${atraccion.getErrors().get("visitantes") != null ? "is-invalid" : "" }'>visitantes:</label>
 	<input class="form-control" type="number" id="visitantes" name="visitantes"
 		required value="${atraccion.visitantes}"></input>
 	<div class="invalid-feedback">
-		<c:out value='${atraccion.esValido.get("visitantes")}'></c:out>
+		<c:out value='${atraccion.getErrors().get("visitantes")}'></c:out>
 	</div>
-</div> --%>
+</div>
 <div class="mb-3">
 	<label for="tipoDeAtraccion" class="col-form-label">Tipo:</label> <input
 		type="text" class="form-control" id="tipoDeAtraccion" name="tipoDeAtraccion"
