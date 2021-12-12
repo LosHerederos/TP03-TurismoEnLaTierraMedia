@@ -9,7 +9,7 @@ import persistence.commons.DAOFactory;
 
 public class AtraccionService {
 	
-	public Atraccion alta(String nombre, String descripcion, String imagen, int costoVisita,
+	public Atraccion crear(String nombre, String descripcion, String imagen, int costoVisita,
 			double tiempoParaRealizarla, int cupoPersonas, int visitantes, TipoDeAtraccion tipoDeAtraccion) {
 
 		Atraccion atraccion = new Atraccion(0, nombre, descripcion, imagen, costoVisita, tiempoParaRealizarla,
@@ -24,7 +24,7 @@ public class AtraccionService {
 		return atraccion;
 	}
 
-	public Atraccion modificacion(int idatraccion, String nombre, String descripcion, String imagen, int costoVisita,
+	public Atraccion editar(int idatraccion, String nombre, String descripcion, String imagen, int costoVisita,
 			double tiempoParaRealizarla, int cupoPersonas, int visitantes, TipoDeAtraccion tipoDeAtraccion) {
 
 		AtraccionDAO atraccionDao = DAOFactory.getAtraccionDAO();
@@ -47,7 +47,7 @@ public class AtraccionService {
 		return atraccion;
 	}
 
-	public void baja(Integer idAtraccion) {
+	public void borrar(Integer idAtraccion) {
 		Atraccion atraccion = new Atraccion(idAtraccion, "", "", "", 0, 0.0, 0, 0, null);
 		AtraccionDAO atraccionDao = DAOFactory.getAtraccionDAO();
 		atraccionDao.delete(atraccion);

@@ -4,8 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Administrador</title>
+
 <jsp:include page="/partials/head.jsp"></jsp:include>
+<link rel="shortcut icon" href="assets/img/favicon.ico">
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/datatables.min.css">
 </head>
 <body>
 
@@ -32,13 +38,14 @@
 			<h1>Estas son las atracciones de la Tierra Media</h1>
 		</div>
 
-		
-			<div class="mb-3">
-				<a href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/crear.do" class="btn btn-primary"
-					role="button"> <i class="bi bi-plus-lg"></i> Nueva Atracción
-				</a>
-			</div>
-		
+
+		<div class="mb-3">
+			<a href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/crear.do"
+				class="btn btn-primary" role="button"> <i class="bi bi-plus-lg"></i>
+				Nueva Atracción
+			</a>
+		</div>
+
 		<table class="table table-stripped table-hover">
 			<thead>
 				<tr>
@@ -67,16 +74,13 @@
 						<td><c:out value="${attraction.duration}"></c:out></td>
 						<td><c:out value="${attraction.capacity}"></c:out></td>
 
-						<td>
-								<a href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/editar.do?id=${atraccion.idAtraccion}"
-									class="btn btn-light rounded-0" role="button"><i
-									class="bi bi-pencil-fill"></i></a>
-								<a href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/borrar.do?id=${atraccion.idAtraccion}"
-									class="btn btn-danger rounded" role="button"><i
-									class="bi bi-x-circle-fill"></i></a>
-							
-							
-							<c:choose>
+						<td><a
+							href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/editar.do?id=${atraccion.idAtraccion}"
+							class="btn btn-light rounded-0" role="button"><i
+								class="bi bi-pencil-fill"></i></a> <a
+							href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/borrar.do?id=${atraccion.idAtraccion}"
+							class="btn btn-danger rounded" role="button"><i
+								class="bi bi-x-circle-fill"></i></a> <c:choose>
 								<c:when
 									test="${user.canAfford(attraction) && user.canAttend(attraction) && attraction.canHost(1)}">
 									<a href="/turismo/attractions/buy.do?id=${attraction.id}"
