@@ -41,7 +41,17 @@ public class ModificarUsuarioServlet extends HttpServlet {
 		int presupuesto = Integer.parseInt(req.getParameter("presupuesto"));
 		double tiempoDisponible = Double.parseDouble(req.getParameter("tiempoDisponible"));
 		TipoDeAtraccion tipoFavorito = TipoDeAtraccion.values()[Integer.parseInt(req.getParameter("tipoFavorito"))];
-		Boolean esAdmin = "on".equals(req.getParameter("esAdmin")) ? true : false;
+		boolean esAdmin = "on".equals(req.getParameter("esAdmin")) ? true : false;
 		int idUsuario = Integer.parseInt(req.getParameter("id"));
+		
+		Usuario usuarioAEditar = usuarioService.modificar(idUsuario, esAdmin, nombre, presupuesto, tiempoDisponible, tipoFavorito);
+		
+		if (usuarioAEditar.esValido()) {
+			resp.sendRedirect(req.getContextPath() + "/admin/usuarios/index.do");
+		} else {
+			req.setAttribute("usuarioAEditar", usuarioAEditar);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/usuarios/editar.jsp");
+			dispatcher.forward(req, resp);
+		}
 	}
 }

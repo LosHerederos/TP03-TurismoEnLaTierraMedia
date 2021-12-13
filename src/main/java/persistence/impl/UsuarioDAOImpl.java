@@ -114,24 +114,24 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public int update(Usuario usuario) {
 		try {
-		String sql = "UPDATE Usuarios\n"
+			String sql = "UPDATE Usuarios\n"
 				+ "SET presupuesto = ?,\n"
-				+ "tiempoDisponible = ?\n"
-				+ "idTipoDeAtraccion = ?\n"
+				+ "tiempoDisponible = ?,\n"
+				+ "idTipoDeAtraccion = ?,\n"
+				+ "esAdmin = ?\n"
 				+ "WHERE idUsuario = ?;";
 
-		Connection conexion = ConnectionProvider.getConnection();
-		PreparedStatement statement = conexion.prepareStatement(sql);
-		statement.setInt(1, usuario.getPresupuesto());
-		statement.setDouble(2, usuario.getTiempoDisponible());
-		statement.setInt(3, usuario.getTipoFavorito().ordinal());
-		statement.setInt(4, usuario.getIdUsuario());
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			statement.setInt(1, usuario.getPresupuesto());
+			statement.setDouble(2, usuario.getTiempoDisponible());
+			statement.setInt(3, usuario.getTipoFavorito().ordinal()+1);
+			statement.setInt(4, usuario.esAdmin()? 1 : 0);
+			statement.setInt(5, usuario.getIdUsuario());
 
-		int filas = statement.executeUpdate();
+			int filas = statement.executeUpdate();
 
-		this.itinerarioDAO.update(usuario.getItinerario());
-
-		return filas;
+			return filas;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
