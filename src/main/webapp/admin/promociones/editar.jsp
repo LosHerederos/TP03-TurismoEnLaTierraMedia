@@ -44,37 +44,42 @@
 						</select>
 					</div>
 					<div class="mb-3">
-						<label for="" class="form-label" style="height:4rem">Atracciones</label>
-						<select name="" id="" multiple class="form-select">
+						<label for="atracciones" class="form-label">Atracciones</label>
+						<select name="atracciones" id="atracciones" multiple class="form-select" style="height:12rem">
 							<c:forEach items="${atracciones}" var="atraccion">
 								<option value="${atraccion.idAtraccion}" <c:if test="${promocionAEditar.atracciones.contains(atraccion)}">selected</c:if>><c:out value="${atraccion.nombre}"></c:out></option>
 							</c:forEach>
 						</select>
 					</div>
 					<div class="mb-3">
-						<label for="" class="form-label">Tipo de promoción</label>
-						<select name="tipoDePromocion" id="" class="form-select">
-							<option value="">Absoluta</option>
-							<option value="">AxB</option>
-							<option value="">Porcentual</option>
+						<label for="tipoDePromocion" class="form-label">Tipo de promoción</label>
+						<select name="tipoDePromocion" id="tipoDePromocion" class="form-select">
+							<option value="Absoluta">Absoluta</option>
+							<option value="AxB">AxB</option>
+							<option value="Porcentual">Porcentual</option>
 						</select>
 					</div>
-					
 					<div id="promocionAbsoluta" hiddens class="mb-3">
-						<label for="">Costo total</label>
-						<input type="number">
+						<label for="costoToal">Costo total</label>
+						<input type="number" name="costoTotal" id="costoTotal" class="form-control">
 					</div>
 					<div id="promocionAxB" hiddens class="mb-3">
-						<label for=""></label>
-						<input type="text">
+						<label for="atraccionesPagas" class="form-label">Atracciones pagas</label>
+						<select name="atraccionesPagas" id="atraccionesPagas" multiple class="form-select" style="height:12rem">
+							<%-- <c:foerEach items="${atracciones}" var="atraccion">
+								<option value="${atraccion.idAtraccion}" <c:if test="${promocionAEditar.atracciones.contains(atraccion)}">selected</c:if>><c:out value="${atraccion.nombre}"></c:out></option>
+							</c:foreEach>
+							--%>
+						</select>
 					</div>
 					<div id="promocionPorcentual" hiddens class="mb-3">
-						<label for="">Porcentaje</label>
-						<input type="number" class="form-control">
+						<label for="porcentaje" class="form-label">Porcentaje</label>
+						<input type="number" name="porcentaje" id="porcentaje" class="form-control">
 					</div>
-					<div class="form-row">
+					<div class="mb-3 text-center">
 						<input type="hidden" name="id" value="<c:out value="${promocionAEditar.idPromocion}"></c:out>">
-						<input type="submit" value="Modificar">
+						<input type="submit" class="btn btn-primary" value="Modificar">
+						<input type="button" class="btn btn-danger" value="Cancelar" onclick="window.history.back()">
 					</div>
 				</form>
 			</div>
