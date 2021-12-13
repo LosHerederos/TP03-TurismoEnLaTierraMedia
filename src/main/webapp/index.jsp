@@ -12,6 +12,9 @@
 	<link rel="stylesheet" href="assets/css/datatables.min.css">
 </head>
 <body>
+<nav class="navbar navbar-dark bg-primary">
+  <!-- Navbar content -->
+</nav>
 	<div class="container">
 		<h1><%= session.getAttribute("usuario") %></h1>
 	</div>
