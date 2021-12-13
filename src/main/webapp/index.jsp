@@ -13,7 +13,7 @@
 </head>
 <body>
 <nav class="navbar navbar-dark bg-primary">
-  <!-- Navbar content -->
+ <a href=/TP03-TurismoEnLaTierraMedia/login.jsp color = "black">Login</a> 
 </nav>
 	<div class="container">
 		<h1><%= session.getAttribute("usuario") %></h1>

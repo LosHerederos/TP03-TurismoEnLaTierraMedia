@@ -80,17 +80,8 @@
 								class="bi bi-pencil-fill"></i></a> <a
 							href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/borrar.do?id=${atraccion.idAtraccion}"
 							class="btn btn-danger rounded" role="button"><i
-								class="bi bi-x-circle-fill"></i></a> <c:choose>
-								<c:when
-									test="${user.canAfford(attraction) && user.canAttend(attraction) && attraction.canHost(1)}">
-									<a href="/turismo/attractions/buy.do?id=${attraction.id}"
-										class="btn btn-success rounded" role="button">Comprar</a>
-								</c:when>
-								<c:otherwise>
-									<a href="#" class="btn btn-secondary rounded disabled"
-										role="button">No se puede comprar</a>
-								</c:otherwise>
-							</c:choose></td>
+								class="bi bi-x-circle-fill"></i></a> 
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
