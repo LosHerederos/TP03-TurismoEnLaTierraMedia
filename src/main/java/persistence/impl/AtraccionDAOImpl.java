@@ -183,6 +183,19 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		}
 	}
 
+	public List<Atraccion> findByResultSet(ResultSet resultados) {
+		try {
+			List<Atraccion> atracciones = new ArrayList<Atraccion>();
+			
+			while(resultados.next()) {
+				atracciones.add(findById(resultados.getInt("idAtraccion")));
+			}
+			return atracciones;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+
 	private Atraccion toAtraccion(ResultSet resultado) {
 		try {
 			return new Atraccion(

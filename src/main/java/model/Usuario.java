@@ -1,5 +1,7 @@
 package model;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Usuario {
@@ -12,6 +14,7 @@ public class Usuario {
 	private double tiempoDisponible;
 	private TipoDeAtraccion tipoFavorito;
 	private Itinerario itinerario = new Itinerario();
+	private HashMap<String, String> errores;
 
 	public Usuario(
 		int idUsuario,
@@ -99,6 +102,10 @@ public class Usuario {
 		this.itinerario = itinerario;
 	}
 
+	public Map<String, String> getErrores() {
+		return errores;
+	}
+
 	public boolean estaEnElItinerario(Sugeribles sugerencia) {
 		return this.itinerario.tiene(sugerencia);
 	}
@@ -112,9 +119,25 @@ public class Usuario {
 		this.presupuesto -= sugerencia.getCosto();
 		this.tiempoDisponible -= sugerencia.getTiempo();
 	}
-	
+
 	public boolean esNulo() {
 		return false;
+	}
+	
+	public boolean esValido() {
+		validar();
+		return errores.isEmpty();
+	}
+	
+	public void validar() {
+		errores = new HashMap<String, String>();
+		
+		if (presupuesto < 0) {
+			errores.put("presupuesto", "No debe ser negativo");
+		}
+		if (tiempoDisponible < 0) {
+			errores.put("tiempoDisponible", "No debe ser negativo");
+		}
 	}
 	
 	@Override
@@ -136,7 +159,7 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Nombre: " + this.nombre + "\t\tTipo de favorito: " + this.tipoFavorito + "\n"
+		return "Nombre: " + this.nombre + ", Tipo de favorito: " + this.tipoFavorito + "\n"
 				+ this.itinerario;
 	}
 }

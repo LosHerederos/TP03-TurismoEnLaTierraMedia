@@ -1,9 +1,10 @@
 package model;
 
 import java.util.Objects;
-
+import java.util.HashMap;
+import java.util.Map;
 public class Atraccion implements Sugeribles {
-
+	private HashMap<String, String> esValido;
 	private int idAtraccion;
 	private boolean eliminado;
 	private String nombre;
@@ -163,9 +164,34 @@ public class Atraccion implements Sugeribles {
 
 	@Override
 	public String toString() {
-		return this.nombre
-				+ "\t\t\t" + this.tipoDeAtraccion
-				+ "\t    " + this.costoVisita
-				+ "\t\t    " + this.tiempoParaRealizarla;
+		return "Nombre: " + this.getNombre() + ", "
+				+ "Tipo: " + this.getTipoDeAtraccion() + ", "
+				+ "Costo: " + this.getCosto() + ", "
+				+ "Tiempo: " + this.tiempoParaRealizarla + ".";
+	}
+	//Validacion
+	public boolean isValid() {
+		validate();
+		return esValido.isEmpty();
+	}
+	
+	public void validate() {
+		esValido = new HashMap<String, String>();
+
+		if (costoVisita <= 0) {
+			esValido.put("Costo", "Debe ser positivo");
+		}
+		if ( tiempoParaRealizarla <= 0) {
+			esValido.put("tiempo", "Debe ser positivo");
+		}
+		if (tiempoParaRealizarla > 60) {
+			esValido.put("tiempo", "Excede el tiempo máximo");
+		}
+		if (cupoPersonas <= 0) {
+			esValido.put("Cupo", "Debe ser positivo");
+		}
+	}
+	public Map<String, String> getErrors() {
+		return esValido;
 	}
 }

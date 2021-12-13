@@ -92,4 +92,20 @@ public class Itinerario {
 		}
 		return total;
 	}
+	@Override
+	public String toString() {
+		String listadoDeAtracciones = "[";
+		for (Atraccion atraccion : atracciones) {
+			listadoDeAtracciones += atraccion.getNombre() + ", ";
+		}
+		listadoDeAtracciones += "]";
+		String listadoDePromociones = "[";
+		for (Promocion promocion : promociones) {
+			listadoDePromociones += promocion.getNombre() + ", ";
+		}
+		listadoDePromociones += "]";
+		return "Atracciones: " + listadoDeAtracciones
+				+ "\nPromociones: " + listadoDePromociones;
+
+	}
 }
