@@ -26,8 +26,8 @@ public class EditarAtraccionesServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String id = req.getParameter("id");
-		int idAtraccion = Integer.parseInt(id);
+		//String id = req.getParameter("id");
+		int idAtraccion = Integer.parseInt(req.getParameter("id"));
 
 		Atraccion atraccion = this.atraccionService.buscar(idAtraccion);
 		req.setAttribute("atraccion", atraccion);
@@ -43,10 +43,10 @@ public class EditarAtraccionesServlet extends HttpServlet {
 		String nombre = req.getParameter("nombre");
 		String descripcion = req.getParameter("descripcion");
 		String imagen = req.getParameter("imagen");
-		int costo = Integer.parseInt(req.getParameter("costo"));
+		int costo = Integer.parseInt(req.getParameter("costoVisita"));
 		// Integer cost = req.getParameter("cost").trim() == "" ? null : Integer.parseInt(req.getParameter("cost"));
-		double tiempo = Double.parseDouble(req.getParameter("tiempo"));
-		int cupo = Integer.parseInt(req.getParameter("cupo"));
+		double tiempo = Double.parseDouble(req.getParameter("tiempoParaRealizarla"));
+		int cupo = Integer.parseInt(req.getParameter("cupoPersonas"));
 		int visitantes = Integer.parseInt(req.getParameter("visitantes"));
 		//TipoDeAtraccion tipo = req.getParameter(tipo.AVENTURA.ordinal());
 		Atraccion atraccion = atraccionService.editar(idAtraccion,nombre,descripcion,imagen,costo,tiempo,cupo,visitantes,TipoDeAtraccion.AVENTURA);

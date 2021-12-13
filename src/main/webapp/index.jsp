@@ -5,7 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>TP03 - Index</title>
+	<title>Bienvenido a la tierra media</title>
 	
 	<link rel="shortcut icon" href="assets/img/favicon.ico">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -13,7 +13,8 @@
 </head>
 <body>
 <nav class="navbar navbar-dark bg-primary">
- <a href=/TP03-TurismoEnLaTierraMedia/login.jsp color = "black">Login</a> 
+ <a class="btn btn-outline-light my-2 my-sm-0" 
+ 	href=/TP03-TurismoEnLaTierraMedia/login.jsp type = "button">Login</a> 
 </nav>
 	<div class="container">
 		<h1><%= session.getAttribute("usuario") %></h1>

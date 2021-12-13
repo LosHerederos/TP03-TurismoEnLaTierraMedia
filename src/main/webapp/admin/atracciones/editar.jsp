@@ -18,7 +18,7 @@
 		</c:if>
 
 		<form action="/TP03-TurismoEnLaTierraMedia/admin/atracciones/editar.do" method="post">
-			<input type="hidden" name="id" value="${attraction.id}">
+			<input type="hidden" name="idAtraccion" value="${atraccion.idAtraccion}">
 			<jsp:include page="/admin/atracciones/atraccion.jsp"></jsp:include>
 		</form>
 	</main>
