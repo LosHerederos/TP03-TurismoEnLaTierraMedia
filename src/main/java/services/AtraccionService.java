@@ -34,27 +34,11 @@ public class AtraccionService {
 		if (atraccion.isValid()) {
 			atraccionDao.update(atraccion);
 		}
-		//AtraccionDAO atraccionDao = DAOFactory.getAtraccionDAO();
-//		Atraccion atraccion = atraccionDao.findById(idAtraccion);
-//
-//		atraccion.setNombre(nombre);
-//		atraccion.setDescripcion(descripcion);
-//		atraccion.setImagen(imagen);
-//		atraccion.setCostoVisita(costoVisita);
-//		atraccion.setTiempoParaRealizarla(tiempoParaRealizarla);
-//		atraccion.setCupoPersonas(cupoPersonas);
-//		atraccion.setVisitantes(visitantes);
-//		atraccion.setTipoDeAtraccion(tipoDeAtraccion);
-//		//if (atraccion.isValid()) {
-//			atraccionDao.update(atraccion);
-//			// XXX: si no devuelve "1", es que hubo más errores
-//		//}
-
+		
 		return atraccion;
 	}
 
-	public void borrar(Integer idAtraccion) {
-		Atraccion atraccion = new Atraccion(idAtraccion, "", "", "", 0, 0.0, 0, 0, null);
+	public void borrar(Atraccion atraccion) {
 		AtraccionDAO atraccionDao = DAOFactory.getAtraccionDAO();
 		atraccionDao.delete(atraccion);
 	}

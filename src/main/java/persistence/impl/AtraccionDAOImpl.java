@@ -16,7 +16,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 
 	public List<Atraccion> findAll()  {
 		try {
-			String sql = "SELECT * FROM Atracciones";
+			String sql = "SELECT * FROM Atracciones WHERE eliminado = 0";
 
 			Connection conexion = ConnectionProvider.getConnection();
 			PreparedStatement statement = conexion.prepareStatement(sql);
@@ -90,9 +90,9 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 			statement.setDouble(5, atraccion.getTiempo());
 			statement.setInt(6, atraccion.getCupoPersonas());
 			statement.setInt(7, atraccion.getVisitantes());
-			statement.setInt(8, atraccion.getTipoDeAtraccion().ordinal());
-			//int filas = statement.executeUpdate();
-			return statement.executeUpdate();
+			statement.setInt(8, atraccion.getTipoDeAtraccion().ordinal()+1);
+			int filas = statement.executeUpdate();
+			return filas;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
@@ -128,13 +128,24 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		}
 	}
 	
+	/*
+	 * public int delete(Atraccion atraccion) { try { String sql =
+	 * "DELETE FROM USERS WHERE USERNAME = ?"; Connection conn =
+	 * ConnectionProvider.getConnection();
+	 * 
+	 * PreparedStatement statement = conn.prepareStatement(sql);
+	 * statement.setString(1, atraccion.getNombre()); int rows =
+	 * statement.executeUpdate();
+	 * 
+	 * return rows; } catch (Exception e) { throw new MissingDataException(e); } }
+	 */
 	public int delete(Atraccion atraccion) {
 		try {
-			String sql = "DELETE FROM USERS WHERE USERNAME = ?";
+			String sql = "UPDATE FROM Atraccion SET borrar = 1  WHERE idAtraccion = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, atraccion.getNombre());
+			statement.setInt(1, atraccion.getIdAtraccion());
 			int rows = statement.executeUpdate();
 
 			return rows;

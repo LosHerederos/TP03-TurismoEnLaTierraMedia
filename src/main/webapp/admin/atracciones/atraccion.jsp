@@ -13,7 +13,7 @@
 <div class="mb-3">
 	<label for="imagen" class="col-form-label">Imagen:</label> <input
 		type="text" class="form-control" id="imagen" name="imagen"
-		disabled="disabled" required value="${atraccion.imagen}">
+		 required value="${atraccion.imagen}">
 		
 </div>
 <span class="btn btn-file"><input type="file" style='-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; opacity: 0; background-color: transparent; color: transparent;'

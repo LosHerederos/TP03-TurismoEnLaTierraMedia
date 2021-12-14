@@ -25,7 +25,7 @@ public class CrearAtraccionesServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		req.setAttribute("tipoDeAtraccion", TipoDeAtraccion.values());
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher("/admin/atracciones/crear.jsp");
 		dispatcher.forward(req, resp);
@@ -40,7 +40,7 @@ public class CrearAtraccionesServlet extends HttpServlet {
 		double tiempoParaRealizarla = Double.parseDouble(req.getParameter("tiempoParaRealizarla"));
 		int cupoPersonas = Integer.parseInt(req.getParameter("cupoPersonas"));
 		int visitantes = Integer.parseInt(req.getParameter("visitantes"));
-		TipoDeAtraccion tipoDeAtraccion = TipoDeAtraccion.AVENTURA;
+		TipoDeAtraccion tipoDeAtraccion = TipoDeAtraccion.values()[Integer.parseInt(req.getParameter("tipoDeAtraccion"))];
 		Atraccion atraccion = atraccionService.crear(nombre,descripcion,imagen, costoVisita, tiempoParaRealizarla, cupoPersonas,visitantes,tipoDeAtraccion);
 		
 		if (atraccion.isValid()) {
@@ -49,7 +49,7 @@ public class CrearAtraccionesServlet extends HttpServlet {
 			req.setAttribute("atraccion", atraccion);
 
 			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/admin/atracciones/crear.jsp");
+					.getRequestDispatcher("/TP03-TurismoEnLaTierraMedia/admin/atracciones/index.do");
 			dispatcher.forward(req, resp);
 		}
 
