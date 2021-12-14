@@ -38,7 +38,7 @@
 				<form method="post">
 					<div class="mb-3">
 						<label for="nombre" class="form-label">Nombre</label>
-						<input type="text" name="nombre" id="nombre" class="form-control" value="${promocionAEditar.nombre}">
+						<input type="text" name="nombre" id="nombre" class="form-control" value="${promocionAEditar.nombre}" required>
 					</div>
 					<div class="mb-3">
 						<label for="descripcion" class="form-label">Descripción</label>
@@ -70,7 +70,7 @@
 						</select>
 					</div>
 					<div id="absoluta" <c:if test="${!tipoDePromocion.equals('PromocionAbsoluta')}">hidden</c:if> class="mb-3">
-						<label for="costoToal" class="form-label">Costo total</label>
+						<label for="costoTotal" class="form-label">Costo total</label>
 						<input type="number" name="costoTotal" id="costoTotal" class="form-control" value="${costoTotal}" min="1">
 					</div>
 					<div id="axb" <c:if test="${!tipoDePromocion.equals('PromocionAXB')}">hidden</c:if> class="mb-3">

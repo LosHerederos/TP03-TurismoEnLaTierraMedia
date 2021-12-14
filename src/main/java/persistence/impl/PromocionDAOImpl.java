@@ -110,8 +110,51 @@ public class PromocionDAOImpl implements PromocionDAO {
 			statement.setInt(4, promocion.getTipoDeAtraccion().ordinal()+1);
 			statement.setString(5, promocion.getClass().getSimpleName());
 			int filas = statement.executeUpdate();
+			promocion.setIdPromocion(buscarIdUltimaPromocion());
+			insertAtracciones(promocion.getIdPromocion(), promocion.getAtracciones(), false);
+			
 			return filas;
 		}  catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+	
+	private int buscarIdUltimaPromocion() {
+		try {
+			String sql = "SELECT idPromocion FROM Promociones ORDER BY idPromocion DESC LIMIT 1";
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			ResultSet resultado = statement.executeQuery();
+
+			resultado.next();
+			int idPromocion = resultado.getInt(1);
+
+			return idPromocion;
+		}  catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+
+	private int insertAtracciones(int idPromocion, List<Atraccion> atracciones, boolean promocionNoGeneral) {
+		try {
+			String sql = "INSERT INTO AtraccionesDePromociones (\n"
+					+ "idPromocion, idAtraccion, promocionNoGeneral\n"
+					+ ") VALUES (?, ?, ?);";
+			
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			
+			for (Atraccion atraccion : atracciones) {
+				statement.setInt(1, idPromocion);
+				statement.setInt(2, atraccion.getIdAtraccion());
+				statement.setInt(3, promocionNoGeneral? 1 : 0);
+				statement.addBatch();
+			}
+			
+			int[] filas = statement.executeBatch();
+			
+			return filas.length;
+		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
 	}

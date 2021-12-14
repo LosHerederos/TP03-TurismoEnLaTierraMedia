@@ -28,7 +28,7 @@ public class PromocionService {
 		return promocionDAO.findAll();
 	}
 
-	public void crear(int idPromocion,
+	public Promocion crear(
 		String nombre,
 		String descripcion,
 		String imagen,
@@ -37,6 +37,23 @@ public class PromocionService {
 		String tipoDePromocion,
 		Object datoExtra
 	) {
+		Promocion promocionACrear = null;
+		if (tipoDePromocion.equals("absoluta")) {
+			int costoTotal = (int) datoExtra;
+			promocionACrear = new PromocionAbsoluta(0, nombre, descripcion, imagen, atracciones, tipoDeAtraccion, costoTotal);
+		} else if (tipoDePromocion.equals("axb")) {
+			List<Atraccion> atraccionesPagas = (List<Atraccion>) (List) datoExtra;
+			promocionACrear = new PromocionAXB(0, nombre, descripcion, imagen, atracciones, tipoDeAtraccion, atraccionesPagas);
+		} else if (tipoDePromocion.equals("porcentual")) {
+			double porcentaje = (double) datoExtra;
+			promocionACrear = new PromocionPorcentual(0, nombre, descripcion, imagen, atracciones, tipoDeAtraccion, porcentaje);
+		}
+		System.out.println(promocionACrear);
+		if (promocionACrear.esValido()) {
+			System.out.println("Persistiendo");
+			this.promocionDAO.insert(promocionACrear);
+		}
+		return promocionACrear;
 	}
 
 	public Promocion modificar(
