@@ -33,6 +33,15 @@ public class PromocionAbsoluta extends Promocion {
 	}
 
 	@Override
+	public void validar() {
+		super.validar();
+
+		if (costoTotal < 1) {
+			super.getErrores().put("costoTotal", "El costo total tiene que ser mayor a cero");
+		}
+	}
+
+	@Override
 	public int getCosto() {
 		return costoTotal;
 	}

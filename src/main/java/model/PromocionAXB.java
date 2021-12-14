@@ -32,7 +32,16 @@ public class PromocionAXB extends Promocion {
 	public void setAtraccionesPagas(List<Atraccion> atraccionesPagas) {
 		this.atraccionesPagas = atraccionesPagas;
 	}
-	
+
+	@Override
+	public void validar() {
+		super.validar();
+
+		if (atraccionesPagas.isEmpty()) {
+			super.getErrores().put("promocionesPagas", "Tiene que haber por lo menos una atracción paga");
+		}
+	}
+
 	@Override
 	public int getCosto() {
 		int costoTotal = 0;

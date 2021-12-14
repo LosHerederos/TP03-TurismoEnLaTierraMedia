@@ -32,6 +32,14 @@ public class PromocionPorcentual extends Promocion {
 		this.porcentaje = porcentaje;
 	}
 
+	public void validar() {
+		super.validar();
+
+		if (porcentaje < 0.1) {
+			super.getErrores().put("porcentaje", "El porcentaje tiene que ser mayor a 0");
+		}
+	}
+
 	@Override
 	public int getCosto() {
 		double costoTotal = super.getCosto() - (super.getCosto() * this.porcentaje);
