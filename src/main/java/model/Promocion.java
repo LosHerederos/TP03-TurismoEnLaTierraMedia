@@ -1,8 +1,10 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Promocion implements Sugeribles {
 
@@ -13,6 +15,7 @@ public abstract class Promocion implements Sugeribles {
 	private String imagen;
 	private List<Atraccion> atracciones;
 	private TipoDeAtraccion tipoDeAtraccion;
+	private HashMap<String, String> errores;
 
 	public Promocion(
 		int idPromocion,
@@ -88,6 +91,32 @@ public abstract class Promocion implements Sugeribles {
 
 	public void setTipoDeAtraccion(TipoDeAtraccion tipoDeAtraccion) {
 		this.tipoDeAtraccion = tipoDeAtraccion;
+	}
+
+	public Map<String, String> getErrores() {
+		return errores;
+	}
+
+	public boolean esValido() {
+		validar();
+		return errores.isEmpty();
+	}
+
+	public void validar() {
+		errores = new HashMap<String, String>();
+		
+		if (nombre.equals("")) {
+			errores.put("nombre", "No puede estar vacio");
+		}
+		if (descripcion.equals("")) {
+			errores.put("descripcion", "No puede estar vacio");
+		}
+		if (imagen.equals("")) {
+			errores.put("imagen", "Debe subir una imágen");
+		}
+		if (atracciones.isEmpty()) {
+			errores.put("atracciones", "Tiene que haber por lo menos una atracción");
+		}
 	}
 
 	@Override

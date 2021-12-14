@@ -35,7 +35,7 @@
 		</div>
 		<div class="row">
 			<div class="col-10 offset-1">
-				<form action="">
+				<form method="post">
 					<div class="mb-3">
 						<label for="nombre" class="form-label">Nombre</label>
 						<input type="text" name="nombre" id="nombre" class="form-control" value="${promocionAEditar.nombre}">
@@ -59,9 +59,6 @@
 					<div class="mb-3">
 						<label for="atracciones" class="form-label">Atracciones</label>
 						<select name="atracciones" id="atracciones" multiple class="form-select" style="height:12rem">
-							<%-- <c:forEach items="${atracciones}" var="atraccion">
-								<option value="${atraccion.idAtraccion}" <c:if test="${promocionAEditar.atracciones.contains(atraccion)}">selected</c:if>><c:out value="${atraccion.nombre}"></c:out></option>
-							</c:forEach>--%>
 						</select>
 					</div>
 					<div class="mb-3">
@@ -74,22 +71,20 @@
 					</div>
 					<div id="absoluta" <c:if test="${!tipoDePromocion.equals('PromocionAbsoluta')}">hidden</c:if> class="mb-3">
 						<label for="costoToal" class="form-label">Costo total</label>
-						<input type="number" name="costoTotal" id="costoTotal" class="form-control" value="${costoTotal}">
+						<input type="number" name="costoTotal" id="costoTotal" class="form-control" value="${costoTotal}" min="1">
 					</div>
 					<div id="axb" <c:if test="${!tipoDePromocion.equals('PromocionAXB')}">hidden</c:if> class="mb-3">
 						<label for="atraccionesPagas" class="form-label">Atracciones pagas</label>
 						<select name="atraccionesPagas" id="atraccionesPagas" multiple class="form-select" style="height:12rem">
-							<%-- <c:forEach items="${atraccionesPagas}" var="atraccionPaga">
-								<option value="${atraccionPaga.idAtraccion}" <c:if test="${atraccionesPagas.contains(atraccion)}">selected</c:if>><c:out value="${atraccionPaga.nombre}"></c:out></option>
-							</c:forEach>--%>
 						</select>
 					</div>
 					<div id="porcentual" <c:if test="${!tipoDePromocion.equals('PromocionPorcentual')}">hidden</c:if> class="mb-3">
 						<label for="porcentaje" class="form-label">Porcentaje</label>
-						<input type="number" name="porcentaje" id="porcentaje" class="form-control" value="${porcentaje}">
+						<input type="number" name="porcentaje" id="porcentaje" class="form-control" value="${porcentaje}" min="0.01" max="1.0" step="0.01">
 					</div>
 					<div class="mb-3 text-center">
 						<input type="hidden" name="id" value="<c:out value="${promocionAEditar.idPromocion}"></c:out>">
+						<input type="hidden" name="tipoActual" value="<c:out value="${tipoActual}"></c:out>">
 						<input type="submit" class="btn btn-primary" value="Modificar">
 						<input type="button" class="btn btn-danger" value="Cancelar" onclick="window.history.back()">
 					</div>

@@ -96,15 +96,47 @@ public class PromocionDAOImpl implements PromocionDAO {
 	}
 
 	@Override
-	public int insert(Promocion t) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insert(Promocion promocion) {
+		try {
+			String sql = "INSERT INTO Promociones (\n"
+					+ "nombre, descripcion, imagen, idTipoDeAtraccion, tipoDePromocion\n"
+					+ ") VALUES (?, ? ,?, ?, ?)";
+			
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			statement.setString(1, promocion.getNombre());
+			statement.setString(2, promocion.getDescripcion());
+			statement.setString(3, promocion.getImagen());
+			statement.setInt(4, promocion.getTipoDeAtraccion().ordinal()+1);
+			statement.setString(5, promocion.getClass().getSimpleName());
+			int filas = statement.executeUpdate();
+			return filas;
+		}  catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
 	@Override
-	public int update(Promocion t) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(Promocion promocion) {
+		try {
+			String sql = "UPDATE Promociones\n"
+					+ "SET nombre = ?,\n"
+					+ "descripcion = ?,\n"
+					+ "imagen = ?,\n"
+					+ "idTipoDeAtraccion = ?\n"
+					+ "WHERE idPromocion = ?;";
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			statement.setString(1, promocion.getNombre());
+			statement.setString(2, promocion.getDescripcion());
+			statement.setString(3, promocion.getImagen());
+			statement.setInt(4, promocion.getTipoDeAtraccion().ordinal()+1);
+			statement.setInt(5, promocion.getIdPromocion());
+			int filas = statement.executeUpdate();
+			return filas;
+		}  catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
 	@Override
@@ -178,6 +210,11 @@ public class PromocionDAOImpl implements PromocionDAO {
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
+	}
+	
+	public int updateAtracciones(int idPromocion, List<Atraccion> atracciones) {
+		
+		return 0;
 	}
 
 	private Promocion toPromocion(ResultSet resultado) {

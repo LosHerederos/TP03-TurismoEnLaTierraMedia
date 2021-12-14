@@ -15,7 +15,7 @@
 	<jsp:include page="/partials/nav.jsp"></jsp:include>
 	<main class="container">
 		<h1>Promoción</h1>
-		<img src="${promocionAVer.imagen}">
+		<img width="300" src="<c:url value="/assets/img/uploads/promociones/${promocionAVer.imagen}"></c:url>">
 		<p>Id: <c:out value="${promocionAVer.idPromocion}"></c:out></p>
 		<p>Nombre: <c:out value="${promocionAVer.nombre}"></c:out></p>
 		<p>Tipo de promoción: <c:out value="${promocionAVer.getClass().getSimpleName()}"></c:out></p>

@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Atraccion;
@@ -61,6 +62,14 @@ public class AtraccionService {
 
 	public Atraccion buscar(Integer idAtraccion) {
 		return DAOFactory.getAtraccionDAO().findById(idAtraccion);
+	}
+
+	public List<Atraccion> buscar(String[] idsAtracciones) {
+		List<Atraccion> atracciones = new ArrayList<Atraccion>(); 
+		for (String idAtraccion : idsAtracciones) {
+			atracciones.add(this.atraccionDao.findById(Integer.parseInt(idAtraccion)));
+		}
+		return atracciones;
 	}
 	
 	public List<Atraccion> listar() {
