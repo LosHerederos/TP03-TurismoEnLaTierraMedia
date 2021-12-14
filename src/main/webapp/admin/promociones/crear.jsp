@@ -45,10 +45,7 @@
 					</div>
 					<div class="mb-3">
 						<label for="atracciones" class="form-label">Atracciones</label>
-						<select name="atracciones" id="atracciones" multiple class="form-select" style="height:12rem">
-							<%-- <c:forEach items="${atracciones}" var="atraccion">
-								<option value="${atraccion.idAtraccion}" <c:if test="${promocionAEditar.atracciones.contains(atraccion)}">selected</c:if>><c:out value="${atraccion.nombre}"></c:out></option>
-							</c:forEach> --%>
+						<select name="atracciones" id="atracciones" multiple class="form-select" style="height:12rem" required>
 						</select>
 					</div>
 					<div class="mb-3">
@@ -59,22 +56,18 @@
 							<option value="porcentual" <c:if test="${tipoDePromocion.equals('PromocionPorcentual')}">selected</c:if>>Porcentual</option>
 						</select>
 					</div>
-					<div id="promocionAbsoluta" class="mb-3">
+					<div id="absoluta" class="mb-3">
 						<label for="costoToal">Costo total</label>
-						<input type="number" name="costoTotal" id="costoTotal" class="form-control">
+						<input type="number" name="costoTotal" id="costoTotal" class="form-control" min="1">
 					</div>
-					<div id="promocionAxB" hidden class="mb-3">
+					<div id="axb" hidden class="mb-3">
 						<label for="atraccionesPagas" class="form-label">Atracciones pagas</label>
 						<select name="atraccionesPagas" id="atraccionesPagas" multiple class="form-select" style="height:12rem">
-							<%-- <c:foerEach items="${atracciones}" var="atraccion">
-								<option value="${atraccion.idAtraccion}" <c:if test="${promocionAEditar.atracciones.contains(atraccion)}">selected</c:if>><c:out value="${atraccion.nombre}"></c:out></option>
-							</c:foreEach>
-							--%>
 						</select>
 					</div>
-					<div id="promocionPorcentual" hidden class="mb-3">
+					<div id="porcentual" hidden class="mb-3">
 						<label for="porcentaje" class="form-label">Porcentaje</label>
-						<input type="number" name="porcentaje" id="porcentaje" class="form-control">
+						<input type="number" name="porcentaje" id="porcentaje" class="form-control" min="0.01" max="1.0" step="0.01">
 					</div>
 					<div class="mb-3 text-center">
 						<input type="submit" class="btn btn-primary" value="Crear">
@@ -168,14 +161,14 @@
 		<c:if test="${tipoActual.equals('axb')}">activarSelectsMutuamenteExcluyente();</c:if>
 		
 		tipoDePromocionSelect.addEventListener('change', function() {
-			//console.log(this.value, this.dataset.tipoActual);
+			console.log(this.value, this.dataset.tipoActual);
 			document.querySelector('#' + this.dataset.tipoActual).toggleAttribute('hidden');
 			document.querySelector('#' + this.value).toggleAttribute('hidden');
 			this.dataset.tipoActual = this.value;
 			if (this.value === 'axb') {
 				activarSelectsMutuamenteExcluyente();
 			} else {
-				desactivarSelectMutuamenteExcluyente();
+				desactivarSelectsMutuamenteExcluyente();
 			}
 		});
 		
