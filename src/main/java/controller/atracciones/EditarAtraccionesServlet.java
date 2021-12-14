@@ -31,7 +31,7 @@ public class EditarAtraccionesServlet extends HttpServlet {
 
 		Atraccion atraccion = this.atraccionService.buscar(idAtraccion);
 		req.setAttribute("atraccion", atraccion);
-
+		req.setAttribute("tipoDeAtraccion", TipoDeAtraccion.values());
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher("/admin/atracciones/editar.jsp");
 		dispatcher.forward(req, resp);
@@ -39,6 +39,7 @@ public class EditarAtraccionesServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Atraccion atraccion = new Atraccion();
 		int idAtraccion = Integer.parseInt(req.getParameter("idAtraccion"));
 		String nombre = req.getParameter("nombre");
 		String descripcion = req.getParameter("descripcion");
@@ -48,17 +49,17 @@ public class EditarAtraccionesServlet extends HttpServlet {
 		double tiempo = Double.parseDouble(req.getParameter("tiempoParaRealizarla"));
 		int cupo = Integer.parseInt(req.getParameter("cupoPersonas"));
 		int visitantes = Integer.parseInt(req.getParameter("visitantes"));
-		//TipoDeAtraccion tipo = req.getParameter(tipo.AVENTURA.ordinal());
-		Atraccion atraccion = atraccionService.editar(idAtraccion,nombre,descripcion,imagen,costo,tiempo,cupo,visitantes,TipoDeAtraccion.AVENTURA);
+		TipoDeAtraccion tipoDeAtraccion = TipoDeAtraccion.values()[Integer.parseInt(req.getParameter("tipoDeAtraccion"))];
+		
+		 atraccion = atraccionService.editar(idAtraccion,nombre,descripcion,imagen,costo,tiempo,cupo,visitantes,tipoDeAtraccion);
 
-		if (atraccion.isValid()) {
-			resp.sendRedirect("/admin/atracciones/index.do");
-		} else {
-			req.setAttribute("atraccion", atraccion);
-
-			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/admin/atracciones/editar.jsp");
-			dispatcher.forward(req, resp);
-		}
+		
+		  if (atraccion.isValid()) { resp.sendRedirect("/TP03-TurismoEnLaTierraMedia/admin/atracciones/index.do");
+		  } else { req.setAttribute("atraccion", atraccion);
+		  
+		  RequestDispatcher dispatcher = getServletContext()
+		  .getRequestDispatcher("/TP03-TurismoEnLaTierraMedia/admin/atracciones/editar.jsp");
+		  dispatcher.forward(req, resp); }
+		 
 	}
 }

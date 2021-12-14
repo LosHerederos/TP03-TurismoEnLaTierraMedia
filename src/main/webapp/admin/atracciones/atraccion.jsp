@@ -7,13 +7,13 @@
 </div>
 <div class="mb-3">
 	<label for="descripcion" class="col-form-label">Descripcion:</label> <input
-		type="text" class="form-control" id="nombre" name="descripcion"
+		type="text" class="form-control" id="descripcion" name="descripcion"
 		required value="${atraccion.descripcion}">
 </div>
 <div class="mb-3">
 	<label for="imagen" class="col-form-label">Imagen:</label> <input
 		type="text" class="form-control" id="imagen" name="imagen"
-		disabled="disabled" required value="${atraccion.imagen} ">
+		disabled="disabled" required value="${atraccion.imagen}">
 		
 </div>
 <span class="btn btn-file"><input type="file" style='-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; opacity: 0; background-color: transparent; color: transparent;'
@@ -58,9 +58,15 @@
 	</div>
 </div>
 <div class="mb-3">
-	<label for="tipoDeAtraccion" class="col-form-label">Tipo:</label> <input
-		type="text" class="form-control" id="tipoDeAtraccion"
-		name="tipoDeAtraccion" required value="${atraccion.tipoDeAtraccion}">
+	<label for="tipoDeAtraccion" class="col-form-label">Tipo:</label> 
+	<select name="tipoDeAtraccion" id="tipoDeAtraccion" class="form-select">
+		<c:forEach items="${tipoDeAtraccion}" var="tipoDeAtraccion">
+			<option value="${tipoDeAtraccion.ordinal()}" 
+				<c:if test="${tipoDeAtraccion == atraccion.tipoDeAtraccion}">selected
+				</c:if>>
+			<c:out value="${tipoDeAtraccion}"></c:out></option>
+		</c:forEach>
+	</select>
 </div>
 <div>
 	<button type="submit" class="btn btn-primary">Guardar</button>
