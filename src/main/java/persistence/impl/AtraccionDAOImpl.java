@@ -141,9 +141,9 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	 */
 	public int delete(Atraccion atraccion) {
 		try {
-			String sql = "UPDATE FROM Atraccion SET borrar = 1  WHERE idAtraccion = ?";
+			String sql = "UPDATE Atracciones SET eliminado = 1  WHERE idAtraccion = ?";
 			Connection conn = ConnectionProvider.getConnection();
-
+			//this.findById(0);
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, atraccion.getIdAtraccion());
 			int rows = statement.executeUpdate();
