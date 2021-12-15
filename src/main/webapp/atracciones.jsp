@@ -10,6 +10,15 @@
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	
 <jsp:include page="partials/head.jsp"></jsp:include>
+
+	<style>
+	
+ 	body {
+	background-color:#1c1b1b;
+	} 
+	
+	</style>
+
 </head>
 <body>
 

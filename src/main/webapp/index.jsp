@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<html lang="es">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Bienvenido a la tierra media</title>
+	<title>Bienvenido a la Tierra Media</title>
 	
 	<link rel="shortcut icon" href="assets/img/favicon.ico">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/datatables.min.css">
+	
+<jsp:include page="partials/head.jsp"></jsp:include>
 	<style>
 	
  	body {
@@ -17,41 +18,19 @@
 	
 	
  	.carousel-inner {
-	background: rgba(0,0,0,.5);
+	background: rgba(0,0,0,.1);
 	} 
 	</style>
 </head>
 <body>
-<jsp:include page="partials/nav.jsp"></jsp:include>
-<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand"  href="#"><img src="assets/img/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
-    Tierra Media</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarColor02">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
+	<jsp:include page="partials/nav.jsp"></jsp:include>
 
-        </li>
-      </ul>
-      
-<a class="btn btn-outline-light my-2 my-sm-0" 
- 	href=/TP03-TurismoEnLaTierraMedia/login.jsp type = "button">Cerrar sesion</a>
-    </div>
-  </div>
-</nav> -->
+<p class="text-success mb-0 p-2 fs-6 d-flex justify-content-center">
+¡Bienvenido, <c:out value="${usuario.nombre}" />!
+</p>
 
-<!-- mensaje de recomendacion -->
-<!-- <p class="text-primary mb-0 p-4 fs-6 d-flex justify-content-center">
-↓ Segun tus preferencias te recomendamos estas atracciones ↓
-</p> -->
-
-<!-- Recomendacion para usuario -->
-
-
+	
 <!-- Carrusel -->
  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
@@ -64,7 +43,7 @@
       <img src="assets/img/castillo.jpg" class="d-block w-50 mx-auto my-auto" alt="">
     </div>
     <div class="carousel-item">
-      <img src="assets/img/armadura.jpg" class="d-block w-50 mx-auto my-auto" alt="">
+      <img src="assets/img/vuelta.jpg" class="d-block w-50 mx-auto my-auto" alt="">
     </div>
     <div class="carousel-item">
       <img src="assets/img/puente bosque.jpg" class="d-block w-50 mx-auto my-auto" alt="">
@@ -79,7 +58,6 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div> 
-
 
 </body>
 </html>

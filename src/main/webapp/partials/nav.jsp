@@ -19,7 +19,7 @@
 			<ul class="navbar-nav">
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						<c:out value="${usuario.nombre}"></c:out>
+						<img src="assets/img/bx-user-circle.svg" alt="" width="30" height="24"><c:out value="${usuario.nombre}"></c:out>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="navbarDropdown">
