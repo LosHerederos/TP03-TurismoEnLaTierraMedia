@@ -24,13 +24,9 @@
 
 	<jsp:include page="partials/nav.jsp"></jsp:include>
 
-	<main class="container">
-		<div class="bg-light p-4 rounded">
-			<h1>
-				¡Bienvenido, <c:out value="${usuario.nombre}" />!
-			</h1>
-		</div>
-	</main>
+<h1 class="text-success mb-0 p-4 fs-6 d-flex justify-content-center">
+Atracciones
+</h1>
 	
 	<!-- Cartas de atracciones -->
 <div class="card-group">

@@ -15,6 +15,9 @@
 				<li class="nav-item"><a class="nav-link active"
 					aria-current="page" href="/TP03-TurismoEnLaTierraMedia/atracciones.jsp">Atracciones</a>
 				</li>		
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" href="/TP03-TurismoEnLaTierraMedia/sugerencias.jsp">Sugerencias</a>
+				</li>		
 			</ul>
 			<ul class="navbar-nav">
 				<li class="nav-item dropdown">
