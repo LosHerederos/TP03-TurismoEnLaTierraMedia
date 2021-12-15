@@ -16,20 +16,28 @@
 	background-color:#1c1b1b;
 	} 
 	
+
+/* 	.bienvenida {
+	background-color: rgb(219, 26, 26);
+	position: realtive;
+	z-index:10;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	} */
 	
  	.carousel-inner {
 	background: rgba(0,0,0,.1);
 	} 
+	
+	.card {
+	background: rgba(0,0,0,.1);
+	}
+	
 	</style>
 </head>
 <body>
 
-	<jsp:include page="partials/nav.jsp"></jsp:include>
-
-<p class="text-success mb-0 p-2 fs-6 d-flex justify-content-center">
-¡Bienvenido, <c:out value="${usuario.nombre}" />!
-</p>
-
+<!-- NAVBAR -->
+<jsp:include page="partials/nav.jsp"></jsp:include>
 	
 <!-- Carrusel -->
  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -58,6 +66,32 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div> 
+
+<!-- descripcion -->
+<%-- <div class="bienvenida">
+<p class="text-success mb-0 p-2 fs-6 d-flex justify-content-center">
+¡Bienvenido, <c:out value="${usuario.nombre}" />!
+</p>
+<p class="text-light mb-0 d-flex justify-content-center"> Este verano 2021/2022 te esperamos en la Tierra media! </p>
+<p class="text-light mb-0 d-flex justify-content-center"> Segun tus preferencias te recomendamos estas promociones.</p>
+<a href="#" class="btn btn-success">Promociones</a>
+</div> --%>
+
+<div class="card text-center">
+  <div class="card-header text-success">
+    ¡Bienvenido, <c:out value="${usuario.nombre}" />!
+  </div>
+  <div class="card-body">
+    <h5 class="card-title text-primary">Este verano 2021/2022 te esperamos en la Tierra media!</h5>
+    <p class="card-text text-primary">Segun tus preferencias te recomendamos estas promociones.</p>
+    <a href="#" class="btn btn-primary">Promociones</a>
+  </div>
+  <div class="card-footer text-muted">
+   Para obtener asistencia con tu visita a Tierra Media, llama al (011) 5354-8119.
+Los Visitantes menores de 18 años de edad deben contar con el permiso de sus padres o tutores para llamar.
+  </div>
+</div>
+
 
 </body>
 </html>
