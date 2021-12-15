@@ -59,14 +59,14 @@ CREATE TABLE IF NOT EXISTS "AtraccionesDePromociones" (
 	PRIMARY KEY("idAtraccion","idPromocion")
 );
 CREATE TABLE IF NOT EXISTS "AtraccionesDeItinerarios" (
-	"idItinerario"	INTEGER NOT NULL UNIQUE,
+	"idItinerario"	INTEGER NOT NULL,
 	"idAtraccion"	INTEGER NOT NULL UNIQUE,
 	FOREIGN KEY("idAtraccion") REFERENCES "Atracciones"("idAtraccion"),
 	FOREIGN KEY("idItinerario") REFERENCES "Itinerarios"("idItinerario"),
 	PRIMARY KEY("idItinerario","idAtraccion")
 );
 CREATE TABLE IF NOT EXISTS "PromocionesDeItinerarios" (
-	"idItinerario"	INTEGER NOT NULL UNIQUE,
+	"idItinerario"	INTEGER NOT NULL,
 	"idPromocion"	INTEGER NOT NULL UNIQUE,
 	FOREIGN KEY("idPromocion") REFERENCES "Promociones"("idPromocion"),
 	FOREIGN KEY("idItinerario") REFERENCES "Itinerarios"("idItinerario"),

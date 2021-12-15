@@ -1,7 +1,7 @@
 -- Carga de datos 2
 
 -- Carga de Atracciones de Itinerarios
-INSERT INTO "AtraccionesDeItinerario" (
+INSERT INTO "AtraccionesDeItinerarios" (
 	"idItinerario",
 	"idAtraccion"
 )
