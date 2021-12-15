@@ -84,7 +84,7 @@
   <div class="card-body">
     <h5 class="card-title text-primary">Este verano 2021/2022 te esperamos en la Tierra media!</h5>
     <p class="card-text text-primary">Segun tus preferencias te recomendamos estas promociones.</p>
-    <a href="/TP03-TurismoEnLaTierraMedia/sugerencias.jsp" class="btn btn-primary">Promociones</a>
+    <a href="#" class="btn btn-primary">Promociones</a>
   </div>
   <div class="card-footer text-muted mt-4">
    Para obtener asistencia con tu visita a Tierra Media, llama al (011) 5354-8119.
