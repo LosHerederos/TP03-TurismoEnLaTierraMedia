@@ -25,7 +25,7 @@
 	} */
 	
  	.carousel-inner {
-	background: rgba(0,0,0,.1);
+	background: rgba(0,0,0,.0.5);
 	} 
 	
 	.card {
@@ -57,14 +57,6 @@
       <img src="assets/img/puente bosque.jpg" class="d-block w-50 mx-auto my-auto" alt="">
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
 </div> 
 
 <!-- descripcion -->
@@ -78,12 +70,12 @@
 </div> --%>
 
 <div class="card text-center">
-  <div class="card-header text-success">
+  <div class="card-header text-warning">
     ¡Bienvenido, <c:out value="${usuario.nombre}" />!
   </div>
   <div class="card-body">
-    <h5 class="card-title text-primary">Este verano 2021/2022 te esperamos en la Tierra media!</h5>
-    <p class="card-text text-primary">Segun tus preferencias te recomendamos estas promociones.</p>
+    <h5 class="card-title text-warning">Este verano 2021/2022 te esperamos en la Tierra media!</h5>
+    <p class="card-text text-warning">Segun tus preferencias te recomendamos estas promociones.</p>
     <a href="/TP03-TurismoEnLaTierraMedia/sugerencias.jsp" class="btn btn-primary">Promociones</a>
   </div>
   <div class="card-footer text-muted mt-4">

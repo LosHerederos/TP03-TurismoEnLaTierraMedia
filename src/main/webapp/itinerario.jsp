@@ -11,87 +11,28 @@
 	
 <jsp:include page="partials/head.jsp"></jsp:include>
 	<style>
-	
- 	body {
-	background-color:#1c1b1b;
-	} 
-	
 
-/* 	.bienvenida {
-	background-color: rgb(219, 26, 26);
-	position: realtive;
-	z-index:10;
-	box-shadow: 0 0 10px rgba(0,0,0,0.5);
-	} */
-	
- 	.carousel-inner {
-	background: rgba(0,0,0,.1);
-	} 
-	
-	.card {
-	background: rgba(0,0,0,.1);
+	pre {
+		font-size: 17px;
 	}
-	
+
+
 	</style>
 </head>
 <body>
 
 <!-- NAVBAR -->
 <jsp:include page="partials/nav.jsp"></jsp:include>
-	
-<!-- Carrusel -->
- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="assets/img/castillo.jpg" class="d-block w-50 mx-auto my-auto" alt="">
-    </div>
-    <div class="carousel-item">
-      <img src="assets/img/vuelta.jpg" class="d-block w-50 mx-auto my-auto" alt="">
-    </div>
-    <div class="carousel-item">
-      <img src="assets/img/puente bosque.jpg" class="d-block w-50 mx-auto my-auto" alt="">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div> 
 
-<!-- descripcion -->
-<%-- <div class="bienvenida">
-<p class="text-success mb-0 p-2 fs-6 d-flex justify-content-center">
-¡Bienvenido, <c:out value="${usuario.nombre}" />!
-</p>
-<p class="text-light mb-0 d-flex justify-content-center"> Este verano 2021/2022 te esperamos en la Tierra media! </p>
-<p class="text-light mb-0 d-flex justify-content-center"> Segun tus preferencias te recomendamos estas promociones.</p>
-<a href="#" class="btn btn-success">Promociones</a>
-</div> --%>
-
-<div class="card text-center">
-  <div class="card-header text-success">
-    ¡Bienvenido, <c:out value="${usuario.nombre}" />!
-  </div>
+<div class="card">
+  <h5 class="card-header">Tu itinerario</h5>
   <div class="card-body">
-    <h5 class="card-title text-primary">Este verano 2021/2022 te esperamos en la Tierra media!</h5>
-    <p class="card-text text-primary">Segun tus preferencias te recomendamos estas promociones.</p>
-    <a href="#" class="btn btn-primary">Promociones</a>
-  </div>
-  <div class="card-footer text-muted mt-4">
-   Para obtener asistencia con tu visita a Tierra Media, llama al (011) 5354-8119.
-Los Visitantes menores de 18 años de edad deben contar con el permiso de sus padres o tutores para llamar.
+    <h5 class="card-title">Atracciones y promociones</h5>
+    <pre>|Nombre de atracción| 		 |Tipo de atracción| 	 |Costo| 	 |Tiempo|</pre>
+    <p class="card-text"><c:out value="${usuario.itinerario}"></c:out></p>
+    <a href="/TP03-TurismoEnLaTierraMedia/index.jsp" class="btn btn-primary">volver</a>
   </div>
 </div>
-
 
 </body>
 </html>

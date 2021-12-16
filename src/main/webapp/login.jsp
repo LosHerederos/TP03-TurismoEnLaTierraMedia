@@ -33,8 +33,6 @@
 			padding: 15px;
 			margin: auto;
 			position: absolute;
-			
-
 		}
 		
 		.form-signin .checkbox {
@@ -56,7 +54,7 @@
 			border-top-left-radius: 0;
 			border-top-right-radius: 0;
 		}
-					
+							
 	</style>
 </head>
 <body>

@@ -17,6 +17,9 @@
 				</li>		
 				<li class="nav-item"><a class="nav-link active"
 					aria-current="page" href="/TP03-TurismoEnLaTierraMedia/sugerencias.jsp">Sugerencias</a>
+				</li>
+								<li class="nav-item"><a class="nav-link active"
+					aria-current="page" href="/TP03-TurismoEnLaTierraMedia/itinerario.jsp">Itinerario</a>
 				</li>		
 			</ul>
 			<ul class="navbar-nav">
