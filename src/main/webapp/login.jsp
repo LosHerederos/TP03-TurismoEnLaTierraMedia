@@ -8,7 +8,7 @@
 	<title>Login</title>
 	
 	<link rel="shortcut icon" href="assets/img/favicon.ico">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<c:url value="/assets/css/bootstrap.min.css"></c:url>">
 	<style>
 		html, body {
 			height: 100%;
@@ -51,9 +51,27 @@
 	</style>
 </head>
 <body>
+	<c:choose>
+		<c:when test="${usuario != null && usuario.esAdmin()}">
+			<c:redirect url="/admin/index.jsp"></c:redirect>
+		</c:when>
+		<c:when test="${usuario != null && !usuario.esAdmin()}">
+			<c:redirect url="/index.jsp"></c:redirect>
+		</c:when>
+	</c:choose>
+	<c:if test="${usuario != null}">
+		<c:redirect></c:redirect>
+	</c:if>
+	<c:if test="${flash != null}">
+				<div class="alert alert-danger">
+					<p>
+						<c:out value="${flash}" />
+					</p>
+				</div>
+	</c:if>
 	<main class="form-signin">
 		
-		<form action="login" method="post">
+		<form action="<c:url value="/login"></c:url>" method="post">
 			<h1 class="h3 mb-3 fw-normal">Login</h1>
 			<div class="form-floating">
 				<input type="text" name="nombre" class="form-control" id="floatingInput"
