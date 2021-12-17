@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Usuario;
 
-@WebFilter(urlPatterns = "/admin/*")
+@WebFilter(urlPatterns="/admin/*")
 public class AdminFilter extends HttpFilter {
 
 	private static final long serialVersionUID = 4961681585093133998L;
@@ -23,8 +23,9 @@ public class AdminFilter extends HttpFilter {
 		if (usuario != null && usuario.esAdmin()) {
 			chain.doFilter(request, response);
 		} else {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-			dispatcher.forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/login.jsp");
+			//RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/");
+			//dispatcher.forward(request, response);
 		}
 	}
 }

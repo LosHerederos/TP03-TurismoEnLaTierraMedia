@@ -39,8 +39,9 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 	@Override
 	public Itinerario findById(int id) {
 		try {
-			List<Atraccion> atracciones;
 			Itinerario itinerario = new Itinerario(id);
+			itinerario.setAtracciones(findAtracciones(id));
+			itinerario.setPromociones(findPromociones(id));
 			return itinerario;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
@@ -102,11 +103,34 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	private List<Atraccion> findAtracciones(int idItinerario) {
+		try {
+			String sql = "SELECT idAtraccion\n"
+				+ "FROM AtraccionesDeItinerarios\n"
+				+ "WHERE idItinerario = ?;";
+			
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			statement.setInt(1, idItinerario);
+			ResultSet resultados = statement.executeQuery();
+
+			List<Atraccion> atracciones = new ArrayList<Atraccion>();
+			
+			while (resultados.next()) {
+				atracciones.add(atraccionDAO.findById(resultados.getInt("idAtraccion")));
+			}
+			return atracciones;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+		
 
 	@Override
 	public void findAtracciones(Itinerario itinerario, List<Atraccion> todasLasAtracciones) {
 		try {
-		String sql = "SELECT *\n"
+			String sql = "SELECT *\n"
 				+ "FROM AtraccionesDeItinerario\n"
 				+ "WHERE idItinerario = ?;";
 
@@ -131,6 +155,28 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 	} catch (Exception e) {
 		throw new MissingDataException(e);
 	}
+	}
+	
+	private List<Promocion> findPromociones(int idItinerario) {
+		try {
+			String sql = "SELECT *\n"
+				+ "FROM PromocionesDeItinerarios\n"
+				+ "WHERE idItinerario = ?;";
+
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			statement.setInt(1, idItinerario);
+			ResultSet resultados = statement.executeQuery();
+
+			List<Promocion> promociones = new ArrayList<Promocion>();
+			
+			while (resultados.next()) {
+				promociones.add(promocionDAO.findById(resultados.getInt("idPromocion")));
+			}
+			return promociones;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
 	@Override

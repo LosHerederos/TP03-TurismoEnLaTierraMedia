@@ -47,8 +47,8 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 
 			Atraccion atraccion = null;
 
-			if (resultado.next() ) {    
-				atraccion = toAtraccion(resultado); 
+			if (resultado.next() ) {
+				atraccion = toAtraccion(resultado);
 			}
 
 			return atraccion;

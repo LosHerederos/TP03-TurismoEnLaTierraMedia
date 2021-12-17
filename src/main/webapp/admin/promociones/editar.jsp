@@ -3,14 +3,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Administrador</title>
-
-	<link rel="shortcut icon" href="<c:url value="/assets/img/favicon.ico"></c:url>">
-	<link rel="stylesheet" href="<c:url value="/assets/css/bootstrap.min.css"></c:url>">
-	<link rel="stylesheet" href="<c:url value="/assets/css/bootstrap-icons.css"></c:url>">
-	<link rel="stylesheet" href="<c:url value="/assets/css/datatables.min.css"></c:url>">
+	<jsp:include page="/partials/head.jsp"></jsp:include>
 </head>
 <body>
 	<c:choose>
@@ -92,7 +85,6 @@
 			</div>
 		</div>
 	</main>
-	<jsp:include page="/partials/scripts.jsp"></jsp:include>
 	<script>
 		const tipoDeAtraccionSelect = document.querySelector('#tipoDeAtraccion');
 		const atraccionesSelect = document.querySelector('#atracciones');

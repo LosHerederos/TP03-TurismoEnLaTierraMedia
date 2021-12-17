@@ -19,7 +19,7 @@
 
 		<form action="/TP03-TurismoEnLaTierraMedia/admin/atracciones/editar.do" method="post">
 			<input type="hidden" name="idAtraccion" value="${atraccion.idAtraccion}">
-			<jsp:include page="/admin/atracciones/atraccion.jsp"></jsp:include>
+			<jsp:include page="/admin/atracciones/formulario.jsp"></jsp:include>
 		</form>
 	</main>
 </body>

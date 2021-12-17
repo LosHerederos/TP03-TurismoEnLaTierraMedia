@@ -18,7 +18,7 @@
 		</c:if>
 
 		<form action="/TP03-TurismoEnLaTierraMedia/admin/atracciones/crear.do" method="post">
-			<jsp:include page="/admin/atracciones/atraccion.jsp"></jsp:include>
+			<jsp:include page="/admin/atracciones/formulario.jsp"></jsp:include>
 		</form>
 	</main>
 </body>

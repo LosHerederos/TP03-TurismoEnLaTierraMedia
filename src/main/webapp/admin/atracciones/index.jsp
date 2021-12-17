@@ -1,24 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Administrador</title>
 
 <jsp:include page="/partials/head.jsp"></jsp:include>
-<link rel="shortcut icon" href="assets/img/favicon.ico">
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/datatables.min.css">
+<jsp:include page="/partials/datatables.jsp"></jsp:include>
 </head>
 <body>
-
 	<jsp:include page="/partials/nav.jsp"></jsp:include>
-
 	<main class="container">
-
 		<c:if test="${flash != null}">
 			<div class="alert alert-danger">
 				<p>
@@ -33,61 +24,75 @@
 				</p>
 			</div>
 		</c:if>
-
-		<div class="bg-light p-4 mb-3 rounded">
-			<h1>Estas son las atracciones de la Tierra Media</h1>
+		<div class="row">
+			<div class="col-12">
+				<div class="bg-light p-4 mb-3 rounded">
+					<h1>Estas son las atracciones de la Tierra Media</h1>
+				</div>
+				<div class="mb-3">
+					<a href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/crear.do"
+						class="btn btn-primary" role="button"> <i class="bi bi-plus-lg"></i>
+						Nueva Atracción
+					</a>
+				</div>
+				<table id="listadoDeAtracciones" class="table table-stripped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nombre</th>
+							<th>Tipo de Atracción</th>
+							<th>Costo</th>
+							<th>Tiempo</th>
+							<th>Cupo Total</th>
+							<th>Cupo Ocupado</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${atracciones}" var="atraccion">
+							<tr>
+								<td><c:out value="${atraccion.idAtraccion}"></c:out></td>
+								<td><c:out value="${atraccion.nombre}"></c:out></td>
+								<td><c:out value="${atraccion.tipoDeAtraccion}"></c:out></td>
+								<td><c:out value="${atraccion.costo}"></c:out></td>
+								<td><c:out value="${atraccion.tiempo}"></c:out></td>
+								<td><c:out value="${atraccion.cupoPersonas}"></c:out></td>
+								<td><c:out value="${atraccion.visitantes}"></c:out></td>
+								<td>
+									<a href="<c:url value="/admin/atracciones/ver.do?id=${atraccion.idAtraccion}"></c:url>"
+										class="btn btn-primary rounded-0"
+										role="button"
+										title="Ver">
+										<i class="bi bi-eye-fill"></i>
+									</a>
+									<a href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/editar.do?id=${atraccion.idAtraccion}"
+										class="btn btn-success rounded-0"
+										role="button"
+										title="Editar">
+										<i class="bi bi-pencil-fill"></i>
+									</a>
+									<a href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/borrar.do?id=${atraccion.idAtraccion}"
+										class="btn btn-danger rounded-0"
+										role="button"
+										title="Eliminar">
+										<i class="bi bi-x-circle-fill"></i>
+									</a> 
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
 		</div>
-
-
-		<div class="mb-3">
-			<a href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/crear.do"
-				class="btn btn-primary" role="button"> <i class="bi bi-plus-lg"></i>
-				Nueva Atracción
-			</a>
-		</div>
-
-		<table class="table table-stripped table-hover">
-			<thead>
-				<tr>
-					<th>Atracci&oacute;n</th>
-					<th>Descripci&oacute;n</th>
-					<th>imagen</th>
-					<th>Costo</th>
-					<th>Duraci&oacute;n</th>
-					<th>Cupo</th>
-					<th>Visitantes</th>
-					<th>Tipo</th>
-					<th>Acciones</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${atracciones}" var="atraccion">
-					<tr>
-						<td><strong><c:out value="${atraccion.nombre}"></c:out></strong></td>
-						<td><c:out value="${atraccion.descripcion}"></c:out></td>
-						<td><c:out value="${atraccion.imagen}"></c:out></td>
-						<td><c:out value="${atraccion.costoVisita}"></c:out></td>
-						<td><c:out value="${atraccion.tiempoParaRealizarla}"></c:out></td>
-						<td><c:out value="${atraccion.cupoPersonas}"></c:out></td>
-						<td><c:out value="${atraccion.visitantes}"></c:out></td>
-						<td><c:out value="${atraccion.tipoDeAtraccion}"></c:out></td>
-						<td><c:out value="${attraction.duration}"></c:out></td>
-						<td><c:out value="${attraction.capacity}"></c:out></td>
-
-						<td><a
-							href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/editar.do?id=${atraccion.idAtraccion}"
-							class="btn btn-light rounded-0" role="button"><i
-								class="bi bi-pencil-fill"></i></a> <a
-							href="/TP03-TurismoEnLaTierraMedia/admin/atracciones/borrar.do?id=${atraccion.idAtraccion}"
-							class="btn btn-danger rounded" role="button"><i
-								class="bi bi-x-circle-fill"></i></a> 
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-
 	</main>
-
+	<script>
+		$(document).ready(function(){
+			$('#listadoDeAtracciones').DataTable({
+				language: {
+					url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
+				}
+			});
+		})
+	</script>
 </body>
 </html>
