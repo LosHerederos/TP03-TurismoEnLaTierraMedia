@@ -44,7 +44,6 @@ public class EditarAtraccionesServlet extends HttpServlet {
 		String descripcion = req.getParameter("descripcion");
 		String imagen = req.getParameter("imagen");
 		int costo = Integer.parseInt(req.getParameter("costoVisita"));
-		// Integer cost = req.getParameter("cost").trim() == "" ? null : Integer.parseInt(req.getParameter("cost"));
 		double tiempo = Double.parseDouble(req.getParameter("tiempoParaRealizarla"));
 		int cupo = Integer.parseInt(req.getParameter("cupoPersonas"));
 		int visitantes = Integer.parseInt(req.getParameter("visitantes"));

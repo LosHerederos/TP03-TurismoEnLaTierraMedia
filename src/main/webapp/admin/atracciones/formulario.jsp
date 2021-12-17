@@ -23,7 +23,7 @@
 	<label for="costoVisita"
 		class='col-form-label ${atraccion.getErrors().get("costoVisita") != null ? "is-invalid" : "" }'>costoVisita:</label>
 	<input class="form-control" type="number" id="costoVisita"
-		name="costoVisita" required value="${atraccion.costoVisita}"></input>
+		name="costoVisita" required value="${atraccion.costoVisita}"min="0"></input>
 	<div class="invalid-feedback">
 		<c:out value='${atraccion.getErrors().get("costoVisita")}'></c:out>
 	</div>
@@ -34,7 +34,7 @@
 		class='col-form-label ${atraccion.getErrors().get("tiempoParaRealizarla") != null ? "is-invalid" : "" }'>Tiempo:</label>
 	<input class="form-control" type="number" id="tiempoParaRealizarla"
 		name="tiempoParaRealizarla" required
-		value="${atraccion.tiempoParaRealizarla}"></input>
+		value="${atraccion.tiempoParaRealizarla}"min="1"></input>
 	<div class="invalid-feedback">
 		<c:out value='${atraccion.getErrors().get("tiempoParaRealizarla")}'></c:out>
 	</div>
@@ -43,7 +43,7 @@
 	<label for="cupoPersonas"
 		class='col-form-label ${atraccion.getErrors().get("cupoPersonas") != null ? "is-invalid" : "" }'>Cupo:</label>
 	<input class="form-control" type="number" id="cupoPersonas"
-		name="cupoPersonas" required value="${atraccion.cupoPersonas}"></input>
+		name="cupoPersonas" required value="${atraccion.cupoPersonas}" min="1"></input>
 	<div class="invalid-feedback">
 		<c:out value='${atraccion.getErrors().get("cupoPersonas")}'></c:out>
 	</div>
@@ -52,7 +52,7 @@
 	<label for="visitantes"
 		class='col-form-label ${atraccion.getErrors().get("visitantes") != null ? "is-invalid" : "" }'>visitantes:</label>
 	<input class="form-control" type="number" id="visitantes"
-		name="visitantes" required value="${atraccion.visitantes}"></input>
+		name="visitantes" required value="${atraccion.visitantes}" min="0"></input>
 	<div class="invalid-feedback">
 		<c:out value='${atraccion.getErrors().get("visitantes")}'></c:out>
 	</div>
