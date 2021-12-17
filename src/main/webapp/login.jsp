@@ -22,6 +22,10 @@
 			font-family: 'MedievalSharp', cursive;
 		}
 		
+		.alert {
+		position: absolute;
+		margin-top: -300px;
+		}
 		
 		body {
 			display: flex;
