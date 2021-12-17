@@ -18,6 +18,7 @@
 				<div class="card-body">
 					<h5 class="card-title"><c:out value="${promocion.nombre}"></c:out></h5>
 					<p class="card-text"><c:out value="${promocion.descripcion}"></c:out></p>
+					<p>Costo: ${promocion.costo} / Tiempo: ${promocion.tiempo}</p>
 					<c:choose>
 						<c:when
 							test="${!usuario.estaEnElItinerario(promocion) && (!promocion.tieneCupoCompleto() && usuario.poseeRecursosSuficientes(promocion.getCosto(), promocion.getTiempo()))}">
