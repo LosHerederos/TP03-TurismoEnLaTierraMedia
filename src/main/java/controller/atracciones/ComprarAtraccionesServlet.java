@@ -28,7 +28,8 @@ public class ComprarAtraccionesServlet extends HttpServlet {
 
 		int idAtraccion = Integer.parseInt(req.getParameter("id"));
 		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
-		Map<String, String> compra = comprarAtraccionService.comprar(usuario.getIdUsuario(), idAtraccion);
+		int idUsuario = usuario.getIdUsuario();
+		Map<String, String> compra = comprarAtraccionService.comprar(idUsuario, idAtraccion);
 		
 		Usuario buscarUsuario = DAOFactory.getUsuarioDAO().findById(usuario.getIdUsuario());
 		req.getSession().setAttribute("usuario", buscarUsuario);
@@ -41,7 +42,7 @@ public class ComprarAtraccionesServlet extends HttpServlet {
 		}
 
 		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/atracciones.jsp");
+				.getRequestDispatcher("/atracciones.do");
 		dispatcher.forward(req, resp);
 	}
 }

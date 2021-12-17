@@ -28,7 +28,9 @@ public class ComprarAtraccionService {
 		}
 
 		if (noCompra.isEmpty()) {
-
+			usuario.setPresupuesto(usuario.getPresupuesto()-dinero);
+			usuario.setTiempoDisponible(usuario.getTiempoDisponible()-tiempo);
+			atraccion.agregarVisitante();
 			usuarioDao.updatePresupuestoYTiempoDisponible(usuario);
 			atraccionDao.updateVisitantes(atraccion);
 		}
