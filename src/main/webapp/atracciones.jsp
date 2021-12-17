@@ -43,7 +43,7 @@ Atracciones
     <div class="card-body">
       <h5 class="card-title">Minas Tirith</h5>
       <p class="card-text"> Minas Tirith es la capital de Gondor en la tercera y Cuarta Edad del Sol de la Tierra Media. Originalmente conocida como Minas Anor.</p>
-      <a href="#" class="btn btn-success">comprar</a>
+      <a href="comprar.do" class="btn btn-success">comprar</a>
     </div>
   </div>
   <div class="card">
