@@ -70,6 +70,12 @@ public class Itinerario {
 				while (!esta && atraccion.hasNext()) {
 					esta = this.atracciones.contains(atraccion.next());
 				}
+				if (!esta && sugerencia instanceof PromocionAXB) {
+					Iterator<Atraccion> atraccionPaga = ((PromocionAXB) sugerencia).getAtraccionesPagas().listIterator();
+					while (!esta && atraccionPaga.hasNext()) {
+						esta = this.atracciones.contains(atraccionPaga.next());
+					}
+				}
 			}
 		}
 		return esta;
