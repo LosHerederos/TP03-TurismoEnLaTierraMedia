@@ -8,7 +8,7 @@
 <jsp:include page="/partials/datatables.jsp"></jsp:include>
 </head>
 <body>
-	<jsp:include page="/partials/nav.jsp"></jsp:include>
+	<jsp:include page="/partials/nav-admin.jsp"></jsp:include>
 	<main class="container">
 		<c:if test="${flash != null}">
 			<div class="alert alert-danger">

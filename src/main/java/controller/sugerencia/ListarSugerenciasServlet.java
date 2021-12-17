@@ -29,8 +29,7 @@ public class ListarSugerenciasServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Sugeribles> sugerencias = sugerenciaService.generarSugerencias((Usuario) req.getSession().getAttribute("usuario"), new int[1]);
 		req.setAttribute("sugerencias", sugerencias);
-		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/views/publico/sugerencias.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/publico/sugerencias.jsp");
 		dispatcher.forward(req, resp);
 	}
 }
