@@ -16,7 +16,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 
 	public List<Atraccion> findAll()  {
 		try {
-			String sql = "SELECT * FROM Atracciones";
+			String sql = "SELECT * FROM Atracciones WHERE eliminado = 0";
 
 			Connection conexion = ConnectionProvider.getConnection();
 			PreparedStatement statement = conexion.prepareStatement(sql);
@@ -47,8 +47,8 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 
 			Atraccion atraccion = null;
 
-			if (resultado.next() ) {    
-				atraccion = toAtraccion(resultado); 
+			if (resultado.next() ) {
+				atraccion = toAtraccion(resultado);
 			}
 
 			return atraccion;
@@ -78,19 +78,20 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	public int insert(Atraccion atraccion) {
 		try {
 			String sql = "INSERT INTO\n"
-				+ "Atracciones (nombre, costoVisita, tiempoParaRealizarla, cupoPersonas, visitantes, idTipoDeAtraccion)\n"
-				+ "VALUES (?, ?, ?, ?, ?, ?)";
+				+ "Atracciones (nombre,descripcion,imagen, costoVisita, tiempoParaRealizarla, cupoPersonas, visitantes, idTipoDeAtraccion)\n"
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			Connection conexion = ConnectionProvider.getConnection();
 			PreparedStatement statement = conexion.prepareStatement(sql);
 			statement.setString(1, atraccion.getNombre());
-			statement.setInt(2, atraccion.getCosto());
-			statement.setDouble(3, atraccion.getTiempo());
-			statement.setInt(4, atraccion.getCupoPersonas());
-			statement.setInt(5, atraccion.getVisitantes());
-			statement.setInt(6, atraccion.getTipoDeAtraccion().ordinal());
+			statement.setString(2, atraccion.getDescripcion());
+			statement.setString(3, atraccion.getImagen());
+			statement.setInt(4, atraccion.getCosto());
+			statement.setDouble(5, atraccion.getTiempo());
+			statement.setInt(6, atraccion.getCupoPersonas());
+			statement.setInt(7, atraccion.getVisitantes());
+			statement.setInt(8, atraccion.getTipoDeAtraccion().ordinal()+1);
 			int filas = statement.executeUpdate();
-		
 			return filas;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
@@ -100,40 +101,51 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	public int update(Atraccion atraccion) {
 		try {
 			String sql = "UPDATE Atracciones\n"
-				+ "SET nombre = ?\n"
-				+ "descripcion = ?\n"
-				+ "costoVisita = ?\n"
-				+ "tiempoParaRealizarla = ?\n"
-				+ "cupoPersonas = ?\n"
-				+ "visitantes = ?\n"
+				+ "SET nombre = ?,\n"
+				+ "descripcion = ?,\n"
+				+ "imagen = ?,\n"
+				+ "costoVisita = ?,\n"
+				+ "tiempoParaRealizarla = ?,\n"
+				+ "cupoPersonas = ?,\n"
+				+ "visitantes = ?,\n"
 				+ "idTipoDeAtraccion = ?\n"
 				+ "WHERE idAtraccion = ?;";
-
 			Connection conexion = ConnectionProvider.getConnection();
 			PreparedStatement statement = conexion.prepareStatement(sql);
 			statement.setString(1, atraccion.getNombre());
 			statement.setString(2, atraccion.getDescripcion());
-			statement.setInt(3, atraccion.getCosto());
-			statement.setDouble(4, atraccion.getTiempo());
-			statement.setInt(5, atraccion.getCupoPersonas());
+			statement.setString(3, atraccion.getImagen());
+			statement.setInt(4, atraccion.getCosto());
+			statement.setDouble(5, atraccion.getTiempo());
 			statement.setInt(6, atraccion.getCupoPersonas());
-			statement.setInt(7, atraccion.getTipoDeAtraccion().ordinal());
-			statement.setInt(8, atraccion.getIdAtraccion());
+			statement.setInt(7, atraccion.getVisitantes());
+			statement.setInt(8, atraccion.getTipoDeAtraccion().ordinal()+1);
+			statement.setInt(9, atraccion.getIdAtraccion());
 			int filas = statement.executeUpdate();
-
 			return filas;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
 	}
 	
+	/*
+	 * public int delete(Atraccion atraccion) { try { String sql =
+	 * "DELETE FROM USERS WHERE USERNAME = ?"; Connection conn =
+	 * ConnectionProvider.getConnection();
+	 * 
+	 * PreparedStatement statement = conn.prepareStatement(sql);
+	 * statement.setString(1, atraccion.getNombre()); int rows =
+	 * statement.executeUpdate();
+	 * 
+	 * return rows; } catch (Exception e) { throw new MissingDataException(e); } }
+	 */
 	public int delete(Atraccion atraccion) {
 		try {
-			String sql = "DELETE FROM USERS WHERE USERNAME = ?";
+			String sql = "UPDATE Atracciones SET eliminado = 1  WHERE idAtraccion = ?";
 			Connection conn = ConnectionProvider.getConnection();
-
+			//this.findById(0);
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, atraccion.getNombre());
+			statement.setInt(1, atraccion.getIdAtraccion());
 			int rows = statement.executeUpdate();
 
 			return rows;

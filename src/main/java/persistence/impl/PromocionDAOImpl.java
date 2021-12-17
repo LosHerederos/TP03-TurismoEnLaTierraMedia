@@ -96,15 +96,139 @@ public class PromocionDAOImpl implements PromocionDAO {
 	}
 
 	@Override
-	public int insert(Promocion t) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insert(Promocion promocion) {
+		try {
+			String sql = "INSERT INTO Promociones (\n"
+				+ "nombre, descripcion, imagen, idTipoDeAtraccion, tipoDePromocion\n"
+				+ ") VALUES (?, ? ,?, ?, ?)";
+			
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			statement.setString(1, promocion.getNombre());
+			statement.setString(2, promocion.getDescripcion());
+			statement.setString(3, promocion.getImagen());
+			statement.setInt(4, promocion.getTipoDeAtraccion().ordinal()+1);
+			statement.setString(5, promocion.getClass().getSimpleName());
+			int filas = statement.executeUpdate();
+			promocion.setIdPromocion(buscarIdUltimaPromocion());
+			insertAtracciones(promocion.getIdPromocion(), promocion.getAtracciones(), false);
+			
+			String tipoDePromocion = promocion.getClass().getSimpleName();
+			if (tipoDePromocion.equals("PromocionAbsoluta")) {
+				sql = "INSERT INTO PromocionAbsoluta (\n"
+					+ "idPromocion, costoTotal\n"
+					+ ") VALUES (?, ?)";
+				int costoTotal = ((PromocionAbsoluta) promocion).getCostoTotal();
+				statement.close();
+				statement = conexion.prepareStatement(sql);
+				statement.setInt(1, promocion.getIdPromocion());
+				statement.setInt(2, costoTotal);
+				filas = statement.executeUpdate();
+			} else if (tipoDePromocion.equals("PromocionAXB")) {
+				insertAtracciones(promocion.getIdPromocion(), ((PromocionAXB) promocion).getAtraccionesPagas(), true);
+			} else if (tipoDePromocion.equals("PromocionPorcentual")) {
+				sql = "INSERT INTO PromocionPorcentual (\n"
+					+ "idPromocion, porcentaje\n"
+					+ ") VALUES (?, ?)";
+				double porcentaje = ((PromocionPorcentual) promocion).getPorcentaje();
+				statement.close();
+				statement = conexion.prepareStatement(sql);
+				statement.setInt(1, promocion.getIdPromocion());
+				statement.setDouble(2, porcentaje);
+				filas = statement.executeUpdate();
+			}
+			return filas;
+		}  catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+	
+	private int buscarIdUltimaPromocion() {
+		try {
+			String sql = "SELECT idPromocion FROM Promociones ORDER BY idPromocion DESC LIMIT 1";
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			ResultSet resultado = statement.executeQuery();
+
+			resultado.next();
+			int idPromocion = resultado.getInt(1);
+
+			return idPromocion;
+		}  catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+
+	private int insertAtracciones(int idPromocion, List<Atraccion> atracciones, boolean promocionNoGeneral) {
+		try {
+			String sql = "INSERT INTO AtraccionesDePromociones (\n"
+					+ "idPromocion, idAtraccion, promocionNoGeneral\n"
+					+ ") VALUES (?, ?, ?);";
+			
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			
+			for (Atraccion atraccion : atracciones) {
+				statement.setInt(1, idPromocion);
+				statement.setInt(2, atraccion.getIdAtraccion());
+				statement.setInt(3, promocionNoGeneral? 1 : 0);
+				statement.addBatch();
+			}
+			
+			int[] filas = statement.executeBatch();
+			
+			return filas.length;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
 	@Override
-	public int update(Promocion t) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(Promocion promocion) {
+		try {
+			String sql = "UPDATE Promociones\n"
+				+ "SET nombre = ?,\n"
+				+ "descripcion = ?,\n"
+				+ "imagen = ?,\n"
+				+ "idTipoDeAtraccion = ?\n"
+				+ "WHERE idPromocion = ?;";
+			Connection conexion = ConnectionProvider.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			statement.setString(1, promocion.getNombre());
+			statement.setString(2, promocion.getDescripcion());
+			statement.setString(3, promocion.getImagen());
+			statement.setInt(4, promocion.getTipoDeAtraccion().ordinal()+1);
+			statement.setInt(5, promocion.getIdPromocion());
+			int filas = statement.executeUpdate();
+			
+			String tipoDePromocion = promocion.getClass().getSimpleName();
+			if (tipoDePromocion.equals("PromocionAbsoluta")) {
+				sql = "UPDATE PromocionAbsoluta\n"
+					+ "SET costoTotal = ?\n"
+					+ "WHERE idPromocion = ?;";
+				int costoTotal = ((PromocionAbsoluta) promocion).getCostoTotal();
+				statement.close();
+				statement = conexion.prepareStatement(sql);
+				statement.setInt(1, costoTotal);
+				statement.setInt(2, promocion.getIdPromocion());
+				filas = statement.executeUpdate();
+			} else if (tipoDePromocion.equals("PromocionAXB")) {
+//				insertAtracciones(promocion.getIdPromocion(), ((PromocionAXB) promocion).getAtraccionesPagas(), true);
+			} else if (tipoDePromocion.equals("PromocionPorcentual")) {
+				sql = "UPDATE PromocionPorcentual\n"
+					+ "SET porcentaje = ?\n"
+					+ "WHERE idPromocion = ?;";
+				double porcentaje = ((PromocionPorcentual) promocion).getPorcentaje();
+				statement.close();
+				statement = conexion.prepareStatement(sql);
+				statement.setDouble(1, porcentaje);
+				statement.setInt(2, promocion.getIdPromocion());
+				filas = statement.executeUpdate();
+			}
+			return filas;
+		}  catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
 	@Override
@@ -178,6 +302,11 @@ public class PromocionDAOImpl implements PromocionDAO {
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
+	}
+	
+	public int updateAtracciones(int idPromocion, List<Atraccion> atracciones) {
+		
+		return 0;
 	}
 
 	private Promocion toPromocion(ResultSet resultado) {

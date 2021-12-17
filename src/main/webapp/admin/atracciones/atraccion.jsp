@@ -1,69 +1,45 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<div class="mb-3">
-	<label for="nombre" class="col-form-label">Nombre:</label> <input
-		type="text" class="form-control" id="nombre" name="nombre" required
-		value="${atraccion.nombre}">
-</div>
-<div class="mb-3">
-	<label for="descripcion" class="col-form-label">Descripcion:</label> <input
-		type="text" class="form-control" id="nombre" name="descripcion"
-		required value="${atraccion.descripcion}">
-</div>
-<div class="mb-3">
-	<label for="imagen" class="col-form-label">Imagen:</label> <input
-		type="text" class="form-control" id="imagen" name="imagen"
-		disabled="disabled" required value="${atraccion.imagen} ">
-		
-</div>
-<span class="btn btn-file"><input type="file" style='-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; opacity: 0; background-color: transparent; color: transparent;'
-		name="file_source" size="40"
-		onchange='$("#upload-file-info").html($(this).val());' /></span>
-<div class="mb-3">
-	<label for="costoVisita"
-		class='col-form-label ${atraccion.getErrors().get("costoVisita") != null ? "is-invalid" : "" }'>costoVisita:</label>
-	<input class="form-control" type="number" id="costoVisita"
-		name="costoVisita" required value="${atraccion.costoVisita}"></input>
-	<div class="invalid-feedback">
-		<c:out value='${atraccion.getErrors().get("costoVisita")}'></c:out>
-	</div>
-</div>
-
-<div class="mb-3">
-	<label for="tiempoParaRealizarla"
-		class='col-form-label ${atraccion.getErrors().get("tiempoParaRealizarla") != null ? "is-invalid" : "" }'>Tiempo:</label>
-	<input class="form-control" type="number" id="tiempoParaRealizarla"
-		name="tiempoParaRealizarla" required
-		value="${atraccion.tiempoParaRealizarla}"></input>
-	<div class="invalid-feedback">
-		<c:out value='${atraccion.getErrors().get("tiempoParaRealizarla")}'></c:out>
-	</div>
-</div>
-<div class="mb-3">
-	<label for="cupoPersonas"
-		class='col-form-label ${atraccion.getErrors().get("cupoPersonas") != null ? "is-invalid" : "" }'>Cupo:</label>
-	<input class="form-control" type="number" id="cupoPersonas"
-		name="cupoPersonas" required value="${atraccion.cupoPersonas}"></input>
-	<div class="invalid-feedback">
-		<c:out value='${atraccion.getErrors().get("cupoPersonas")}'></c:out>
-	</div>
-</div>
-<div class="mb-3">
-	<label for="visitantes"
-		class='col-form-label ${atraccion.getErrors().get("visitantes") != null ? "is-invalid" : "" }'>visitantes:</label>
-	<input class="form-control" type="number" id="visitantes"
-		name="visitantes" required value="${atraccion.visitantes}"></input>
-	<div class="invalid-feedback">
-		<c:out value='${atraccion.getErrors().get("visitantes")}'></c:out>
-	</div>
-</div>
-<div class="mb-3">
-	<label for="tipoDeAtraccion" class="col-form-label">Tipo:</label> <input
-		type="text" class="form-control" id="tipoDeAtraccion"
-		name="tipoDeAtraccion" required value="${atraccion.tipoDeAtraccion}">
-</div>
-<div>
-	<button type="submit" class="btn btn-primary">Guardar</button>
-	<a onclick="window.history.back();" class="btn btn-secondary"
-		role="button">Cancelar</a>
-</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<jsp:include page="/partials/head.jsp"></jsp:include>
+</head>
+<body>
+	<jsp:include page="/partials/nav.jsp"></jsp:include>
+	<main class="container">
+		<div class="row mb-4">
+			<div class="col-9">
+				<h2>Atracción: <c:out value="${atraccionAVer.nombre}"></c:out></h2>
+			</div>
+			<div class="col-3 d-flex flex-row justify-content-end">
+				<a href="javascript:window.history.back()"
+					class="btn btn-primary rounded-0"
+					role="button"
+					title="Volver">
+					<i class="bi bi-arrow-left-circle-fill"></i>
+					Volver
+				</a>
+				<a href="<c:url value="/admin/atracciones/editar.do?id=${atraccionAVer.idAtraccion}"></c:url>"
+					class="btn btn-success rounded-0"
+					role="button"
+					title="Editar">
+					<i class="bi bi-pencil-fill"></i>
+					Editar
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-9 fs-4">
+				<p>Tipo de atracción: <c:out value="${atraccionAVer.tipoDeAtraccion}"></c:out></p>
+				<p>Descripción: <c:out value="${atraccionAVer.descripcion}"></c:out></p>
+				<p>Costo: <c:out value="${atraccionAVer.getCosto()}"></c:out></p>
+				<p>Tiempo: <c:out value="${atraccionAVer.getTiempo()}"></c:out></p>
+			</div>
+			<div class="col-3">
+				<img style="width: 100%" src="<c:url value="/assets/img/uploads/atracciones/${atraccionAVer.imagen}"></c:url>">
+			</div>
+		</div>
+	</main>
+</body>
+</html>

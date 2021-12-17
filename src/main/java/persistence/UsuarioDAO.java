@@ -11,4 +11,5 @@ public interface UsuarioDAO extends GenericDAO<Usuario> {
 
 	List<Usuario> findAll(List<Atraccion> todasLasAtracciones, List<Promocion> todasLasPromociones);
 	Usuario findByNombre(String nombre);
+	int updatePresupuestoYTiempoDisponible(Usuario usuario);
 }

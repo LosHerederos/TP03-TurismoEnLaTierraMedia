@@ -175,7 +175,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				+ "FROM Usuarios\n"
 				+ "JOIN Itinerarios\n"
 				+ "ON Usuarios.idUsuario = Itinerarios.idUsuario\n"
-				+ "WHERE Usuarios.nombre = ?";
+				+ "WHERE upper(Usuarios.nombre) = ?";
 
 		Connection conexion = ConnectionProvider.getConnection();
 		PreparedStatement statement = conexion.prepareStatement(sql);

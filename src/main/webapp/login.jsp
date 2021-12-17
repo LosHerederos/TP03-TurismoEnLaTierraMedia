@@ -8,12 +8,11 @@
 	<title>Login</title>
 	
 	<link rel="shortcut icon" href="assets/img/favicon.ico">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	
+	<link rel="stylesheet" href="<c:url value="/assets/css/bootstrap.min.css"></c:url>">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
-	
+
 	<style>
 		html, body {
 			height: 100%;
@@ -64,34 +63,48 @@
 			border-top-left-radius: 0;
 			border-top-right-radius: 0;
 		}
-							
 	</style>
 </head>
 <body>
+	<c:choose>
+			<c:when test="${usuario != null && usuario.esAdmin()}">
+				<c:redirect url="/admin/index.jsp"></c:redirect>
+			</c:when>
+			<c:when test="${usuario != null && !usuario.esAdmin()}">
+				<c:redirect url="/index.jsp"></c:redirect>
+			</c:when>
+	</c:choose>
+	<c:if test="${flash != null}">
+		<div class="alert alert-danger">
+			<p>
+				<c:out value="${flash}" />
+			</p>
+		</div>
+	</c:if>
 
-<!-- VIDEO -->
-<div class="video">
-	<video src="assets/img/login tierra media.mp4" muted loop autoplay></video>
+	<!-- VIDEO -->
+	<div class="video">
+		<video src="assets/img/login tierra media.mp4" muted loop autoplay></video>
 	</div>
 	
 <!-- NAVBAR -->	
-	<main class="form-signin">		
-		<form action="login" method="post">
+	<main class="form-signin">
+		<form action="<c:url value="/login"></c:url>" method="post">
 			<div class="inicio">
-			<h1 class="text-white h3 mb-3 fw-normal"><img src="assets/img/favicon.ico" alt="" width="35" height="27" class="d-inline-block align-text-top">
-			Iniciar sesion</h1>
-			</div>
-			<div class="form-floating">
-				<input type="text" name="nombre" class="form-control" id="floatingInput"
+				<h1 class="text-white h3 mb-3 fw-normal">
+					<img src="assets/img/favicon.ico" alt="" width="35" height="27" class="d-inline-block align-text-top">
+					Iniciar sesion
+				</h1>
+				<div class="form-floating">
+					<input type="text" name="nombre" class="form-control" id="floatingInput"
 					placeholder="Pepe"> <label for="floatingInput">Nombre</label>
+				</div>
+				<br>
+				<button class="w-100 btn btn-lg btn-success" type="submit">Ingresar</button>
 			</div>
-			<br>
-			<button class="w-100 btn btn-lg btn-success" type="submit">Ingresar</button>
-			
 		</form>
 	</main>
-	
 <!-- VIDEO -->	
-	
+
 </body>
 </html>

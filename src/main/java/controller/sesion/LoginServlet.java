@@ -11,9 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Usuario;
 import services.LoginService;
 
-/**
- * Servlet implementation class LoginServlet
- */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
@@ -27,10 +24,10 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String nombre = req.getParameter("nombre");
 
-		Usuario usuario = loginService.login(nombre);
+		Usuario usuario = loginService.login(nombre.toUpperCase());
 
 		if (!usuario.esNulo()) {
 			req.getSession().setAttribute("usuario", usuario);

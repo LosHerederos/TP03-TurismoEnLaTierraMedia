@@ -123,12 +123,12 @@ public class Usuario {
 	public boolean esNulo() {
 		return false;
 	}
-	
+
 	public boolean esValido() {
 		validar();
 		return errores.isEmpty();
 	}
-	
+
 	public void validar() {
 		errores = new HashMap<String, String>();
 		
@@ -139,7 +139,7 @@ public class Usuario {
 			errores.put("tiempoDisponible", "No debe ser negativo");
 		}
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(idUsuario);
