@@ -20,7 +20,6 @@
 					<p class="card-text"><c:out value="${atraccion.descripcion}"></c:out></p>
 					<p>Costo: ${atraccion.costo} / Tiempo: ${atraccion.tiempo}
 							<c:choose>
-<%-- 							<c:set ></c:set> --%>
 								<c:when
 									test="${!usuario.itinerario.tiene(atraccion) && (usuario.poseeRecursosSuficientes(atraccion.getCosto(), atraccion.getTiempoParaRealizarla()) && !atraccion.tieneCupoCompleto())}">
 									<a href="comprarAtraccion.do?idAtraccion=${atraccion.idAtraccion}"
