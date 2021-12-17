@@ -128,22 +128,10 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		}
 	}
 	
-	/*
-	 * public int delete(Atraccion atraccion) { try { String sql =
-	 * "DELETE FROM USERS WHERE USERNAME = ?"; Connection conn =
-	 * ConnectionProvider.getConnection();
-	 * 
-	 * PreparedStatement statement = conn.prepareStatement(sql);
-	 * statement.setString(1, atraccion.getNombre()); int rows =
-	 * statement.executeUpdate();
-	 * 
-	 * return rows; } catch (Exception e) { throw new MissingDataException(e); } }
-	 */
 	public int delete(Atraccion atraccion) {
 		try {
 			String sql = "UPDATE Atracciones SET eliminado = 1  WHERE idAtraccion = ?";
 			Connection conn = ConnectionProvider.getConnection();
-			//this.findById(0);
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, atraccion.getIdAtraccion());
 			int rows = statement.executeUpdate();

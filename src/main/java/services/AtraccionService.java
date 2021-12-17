@@ -22,7 +22,6 @@ public class AtraccionService {
 		if (atraccion.isValid()) {
 			atraccionDao = DAOFactory.getAtraccionDAO();
 			atraccionDao.insert(atraccion);
-			// XXX: si no devuelve "1", es que hubo más errores
 		}
 
 		return atraccion;

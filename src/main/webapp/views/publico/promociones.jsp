@@ -18,7 +18,17 @@
 				<div class="card-body">
 					<h5 class="card-title"><c:out value="${promocion.nombre}"></c:out></h5>
 					<p class="card-text"><c:out value="${promocion.descripcion}"></c:out></p>
-					<a href="#" class="btn btn-success">comprar</a>
+					<c:choose>
+								<c:when
+									test="${usuario.poseeRecursosSuficientes(promocion.getCosto(), promocion.getTiempo()) && !promocion.tieneCupoCompleto() && !itinerario.getPromociones().contains(promocion)}">
+									<a href="comprar.do?id=${promocion.idPromocion}"
+										class="btn btn-success rounded" role="button">Comprar</a>
+								</c:when>
+								<c:otherwise>
+									<a href="#" class="btn btn-secondary rounded disabled"
+										role="button">No se puede comprar</a>
+								</c:otherwise>
+							</c:choose>
 				</div>
 			</div>
 		</c:forEach>

@@ -1,32 +1,35 @@
-package services;
+package controller.promocion;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import model.Atraccion;
-import model.Usuario;
 import model.Itinerario;
+import model.Promocion;
+import model.PromocionAbsoluta;
+import model.Usuario;
 import persistence.AtraccionDAO;
-import persistence.UsuarioDAO;
 import persistence.ItinerarioDAO;
+import persistence.PromocionDAO;
+import persistence.UsuarioDAO;
 import persistence.commons.DAOFactory;
-public class ComprarAtraccionService {
-	AtraccionDAO atraccionDao = DAOFactory.getAtraccionDAO();
+
+public class ComprarPromocionServlet {
+	PromocionDAO promocionDao = DAOFactory.getPromocionDAO();
 	UsuarioDAO usuarioDao = DAOFactory.getUsuarioDAO();
 	ItinerarioDAO itinerarioDao = DAOFactory.getItinerarioDAO();
 	public Map<String, String> comprar(int idUsuario, int idAtraccion, int idItinerario) {
 		Map<String, String> noCompra = new HashMap<String, String>();
 		Usuario usuario = usuarioDao.findById(idUsuario);
-		Atraccion atraccion = atraccionDao.findById(idAtraccion);
+		Promocion promocion = promocionDao.findById(idAtraccion);
 		Itinerario itinerario = itinerarioDao.findById(idItinerario);
-		int dinero = atraccion.getCosto();
-		double tiempo = atraccion.getTiempoParaRealizarla();
-		if (itinerario.getAtracciones().contains(atraccion)) {
+		int dinero = promocion.getCosto();
+		double tiempo = promocion.getTiempo();
+		if (itinerario.getPromociones().contains(promocion)) {
 			noCompra.put("itinerario", "Esta la atraccion en el itinerario");
 		}
-		if (atraccion.tieneCupoCompleto()) {
-			noCompra.put("atraccion", "No hay cupo disponible");
+		if (promocion.tieneCupoCompleto()) {
+			noCompra.put("promocion", "No hay cupo disponible");
 		}
 		if (!usuario.poseeRecursosSuficientes(dinero, tiempo)) {
 			noCompra.put("usuario", "No hay dinero y/o tiempo suficiente");
@@ -35,10 +38,11 @@ public class ComprarAtraccionService {
 		if (noCompra.isEmpty()) {
 			usuario.setPresupuesto(usuario.getPresupuesto()-dinero);
 			usuario.setTiempoDisponible(usuario.getTiempoDisponible()-tiempo);
-			atraccion.agregarVisitante();
+			promocion.agregarVisitante();
 			//itinerarioDao.
 			usuarioDao.updatePresupuestoYTiempoDisponible(usuario);
-			atraccionDao.updateVisitantes(atraccion);
+			
+			promocionDao.update(promocion);
 		}
 
 		return noCompra;

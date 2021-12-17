@@ -19,8 +19,9 @@
 					<h5 class="card-title"><c:out value="${atraccion.nombre}"></c:out></h5>
 					<p class="card-text"><c:out value="${atraccion.descripcion}"></c:out></p>
 							<c:choose>
+<%-- 							<c:set ></c:set> --%>
 								<c:when
-									test="${usuario.poseeRecursosSuficientes(atraccion.getCosto(), atraccion.getTiempoParaRealizarla()) && !atraccion.tieneCupoCompleto()}">
+									test="${usuario.poseeRecursosSuficientes(atraccion.getCosto(), atraccion.getTiempoParaRealizarla()) && !atraccion.tieneCupoCompleto() && !itinerario.getAtracciones().contains(atraccion)}">
 									<a href="comprar.do?id=${atraccion.idAtraccion}"
 										class="btn btn-success rounded" role="button">Comprar</a>
 								</c:when>
@@ -28,7 +29,7 @@
 									<a href="#" class="btn btn-secondary rounded disabled"
 										role="button">No se puede comprar</a>
 								</c:otherwise>
-							</c:choose></td>
+							</c:choose>
 				</div>
 			</div>
 		</c:forEach>

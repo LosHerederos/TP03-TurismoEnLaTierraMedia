@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Itinerario;
 import model.Usuario;
 import persistence.commons.DAOFactory;
 import services.ComprarAtraccionService;
@@ -29,8 +30,10 @@ public class ComprarAtraccionesServlet extends HttpServlet {
 		int idAtraccion = Integer.parseInt(req.getParameter("id"));
 		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
 		int idUsuario = usuario.getIdUsuario();
-		Map<String, String> compra = comprarAtraccionService.comprar(idUsuario, idAtraccion);
-		
+		Itinerario itinerario = usuario.getItinerario();
+		//Itinerario itinerario = (Itinerario) req.getSession().getAttribute("itinerario");
+		//int idItinerario = itinerario.getIdItinerario();
+		Map<String, String> compra = comprarAtraccionService.comprar(idUsuario, idAtraccion, itinerario.getIdItinerario());
 		Usuario buscarUsuario = DAOFactory.getUsuarioDAO().findById(usuario.getIdUsuario());
 		req.getSession().setAttribute("usuario", buscarUsuario);
 		
