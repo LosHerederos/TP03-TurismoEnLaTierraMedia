@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="<c:url value="/assets/css/datatables.min.css"></c:url>">
 </head>
 <body>
-	<jsp:include page="/partials/nav.jsp"></jsp:include>
+	<jsp:include page="/partials/nav-admin.jsp"></jsp:include>
 	<main class="container">
 		<h1>Hola administrador</h1>
 		<ul>

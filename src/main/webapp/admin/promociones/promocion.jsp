@@ -6,7 +6,7 @@
 	<jsp:include page="/partials/head.jsp"></jsp:include>
 </head>
 <body>
-	<jsp:include page="/partials/nav.jsp"></jsp:include>
+	<jsp:include page="/partials/nav-admin.jsp"></jsp:include>
 	<main class="container">
 		<div class="row mb-4">
 			<div class="col-9">

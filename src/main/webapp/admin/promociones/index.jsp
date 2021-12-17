@@ -7,7 +7,7 @@
 	<jsp:include page="/partials/datatables.jsp"></jsp:include>
 </head>
 <body>
-	<jsp:include page="/partials/nav.jsp"></jsp:include>
+	<jsp:include page="/partials/nav-admin.jsp"></jsp:include>
 	<main class="container">
 		<div class="row">
 			<div class="col-12">

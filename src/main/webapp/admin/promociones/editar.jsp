@@ -19,7 +19,7 @@
 			<c:set var="atraccionesPagas" value="${listaVacia}"></c:set>
 		</c:when>
 	</c:choose>
-	<jsp:include page="/partials/nav.jsp"></jsp:include>
+	<jsp:include page="/partials/nav-admin.jsp"></jsp:include>
 	<main class="container">
 		<div class="row">
 			<div class="col-12">
