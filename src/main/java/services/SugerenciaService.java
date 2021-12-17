@@ -22,8 +22,8 @@ public class SugerenciaService {
 		this.atraccionDAO = DAOFactory.getAtraccionDAO();
 		this.promocionDAO = DAOFactory.getPromocionDAO();
 	}
-	
-	public List<Sugeribles> generarSugerencias(Usuario usuario, int[] sugeriblesIdsQuitados) {
+
+	public List<Sugeribles> generarSugerencias(Usuario usuario) {
 		List<Atraccion> atracciones = atraccionDAO.findAll();
 		List<Promocion> promociones = promocionDAO.findAll();
 		Collections.sort(promociones, new OrdenadorPorPrecioYTiempo());
@@ -31,6 +31,12 @@ public class SugerenciaService {
 		LinkedList<Sugeribles> sugerencias = new LinkedList<Sugeribles>();
 		sugerencias.addAll(promociones);
 		sugerencias.addAll(atracciones);
+//		sugerencias.removeIf(sugerencia -> usuario.estaEnElItinerario(sugerencia));
+		sugerencias.removeIf(sugerencia -> !cumplePreferencias(sugerencia, usuario).equals(true));
 		return sugerencias;
+	}
+
+	private Boolean cumplePreferencias(Sugeribles sugerencia, Usuario usuario){
+		return (sugerencia.getTipoDeAtraccion().equals(usuario.getTipoFavorito()));
 	}
 }
