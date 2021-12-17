@@ -67,6 +67,11 @@
 			border-top-left-radius: 0;
 			border-top-right-radius: 0;
 		}
+		
+		body {
+			max-width: 100%;
+			overflow: hidden;
+		}
 	</style>
 </head>
 <body>
