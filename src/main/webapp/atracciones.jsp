@@ -39,7 +39,7 @@ Atracciones
     </div>
   </div>
    <div class="card">
-    <img src="assets/img/casco escudo.jpg" class="card-img-top" alt="...">
+    <img src="assets/img/torre.jpg" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title">Minas Tirith</h5>
       <p class="card-text"> Minas Tirith es la capital de Gondor en la tercera y Cuarta Edad del Sol de la Tierra Media. Originalmente conocida como Minas Anor.</p>
@@ -55,7 +55,7 @@ Atracciones
     </div>
   </div>
     <div class="card">
-    <img src="assets/img/terror.jpg" class="card-img-top" alt="...">
+    <img src="assets/img/soldado.jpg" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title">Mordor</h5>
       <p class="card-text">En esta región principalmente volcánica, situada al este de Gondor, Sauron forjó el Anillo Único.</p>
@@ -71,7 +71,7 @@ Atracciones
     </div>
   </div>
   <div class="card">
-    <img src="assets/img/casco escudo.jpg" class="card-img-top" alt="...">
+    <img src="assets/img/castle.jpg" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title">Erebor</h5>
       <p class="card-text">Fue colonizada por el rey enano Thráin I y se la conoció como el Reino bajo la Montaña..</p>
@@ -79,7 +79,7 @@ Atracciones
     </div>
   </div>
     <div class="card">
-    <img src="assets/img/rey.jpg" class="card-img-top" alt="...">
+    <img src="assets/img/bosque.jpg" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title">Bosque Negro</h5>
       <p class="card-text">Desde la construcción de la fortaleza de Dol Guldur por parte de Sauron, una gran sombra se cernió sobre el bosque, pasando a llamarse Bosque Negro.</p>
@@ -87,7 +87,7 @@ Atracciones
     </div>
   </div>
     <div class="card">
-    <img src="assets/img/terror.jpg" class="card-img-top" alt="...">
+    <img src="assets/img/templario.jpg" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title">Lothlórien</h5>
       <p class="card-text">Reino élfico de la Tierra Media, ubicado al este de las Montañas Nubladas y más allá de las puertas de Moria.</p>
