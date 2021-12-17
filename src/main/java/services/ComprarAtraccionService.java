@@ -1,46 +1,38 @@
 package services;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import model.Atraccion;
 import model.Usuario;
-import model.Itinerario;
 import persistence.AtraccionDAO;
 import persistence.UsuarioDAO;
-import persistence.ItinerarioDAO;
 import persistence.commons.DAOFactory;
 public class ComprarAtraccionService {
+
 	AtraccionDAO atraccionDao = DAOFactory.getAtraccionDAO();
 	UsuarioDAO usuarioDao = DAOFactory.getUsuarioDAO();
-	ItinerarioDAO itinerarioDao = DAOFactory.getItinerarioDAO();
-	public Map<String, String> comprar(int idUsuario, int idAtraccion, int idItinerario) {
+	
+	public Map<String, String> comprar(int idUsuario, int idAtraccion) {
 		Map<String, String> noCompra = new HashMap<String, String>();
 		Usuario usuario = usuarioDao.findById(idUsuario);
 		Atraccion atraccion = atraccionDao.findById(idAtraccion);
-		Itinerario itinerario = itinerarioDao.findById(idItinerario);
-		int dinero = atraccion.getCosto();
-		double tiempo = atraccion.getTiempoParaRealizarla();
-		if (itinerario.getAtracciones().contains(atraccion)) {
+
+		if (usuario.estaEnElItinerario(atraccion)) {
 			noCompra.put("itinerario", "Esta la atraccion en el itinerario");
 		}
 		if (atraccion.tieneCupoCompleto()) {
 			noCompra.put("atraccion", "No hay cupo disponible");
 		}
-		if (!usuario.poseeRecursosSuficientes(dinero, tiempo)) {
+		if (!usuario.poseeRecursosSuficientes(atraccion.getCosto(), atraccion.getTiempo())) {
 			noCompra.put("usuario", "No hay dinero y/o tiempo suficiente");
 		}
 
 		if (noCompra.isEmpty()) {
-			usuario.setPresupuesto(usuario.getPresupuesto()-dinero);
-			usuario.setTiempoDisponible(usuario.getTiempoDisponible()-tiempo);
-			atraccion.agregarVisitante();
-			//itinerarioDao.
+			usuario.aceptarSugerencia(atraccion);
 			usuarioDao.updatePresupuestoYTiempoDisponible(usuario);
 			atraccionDao.updateVisitantes(atraccion);
 		}
-
 		return noCompra;
 	}
 }

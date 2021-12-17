@@ -9,10 +9,13 @@ import persistence.AtraccionDAO;
 import persistence.commons.DAOFactory;
 
 public class AtraccionService {
+
 	AtraccionDAO atraccionDao;
+
 	public AtraccionService() {
 		this.atraccionDao = DAOFactory.getAtraccionDAO();
 	}
+
 	public Atraccion crear(String nombre, String descripcion, String imagen, int costoVisita,
 			double tiempoParaRealizarla, int cupoPersonas, int visitantes, TipoDeAtraccion tipoDeAtraccion) {
 

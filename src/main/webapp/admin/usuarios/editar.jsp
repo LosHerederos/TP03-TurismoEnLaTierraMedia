@@ -26,7 +26,7 @@
 					</div>
 					<div class="mb-3">
 						<label for="tiempoDisponible" class="form-label">Tiempo disponible</label>
-						<input type="number" name="tiempoDisponible" id="tiempoDisponible" class="form-control" required min="0" value="<c:out value="${usuarioAEditar.tiempoDisponible}"></c:out>">
+						<input type="number" name="tiempoDisponible" id="tiempoDisponible" class="form-control" required min="0" step="0.01" value="<c:out value="${usuarioAEditar.tiempoDisponible}"></c:out>">
 					</div>
 					<div class="mb-3">
 						<label for="tipoFavorito">Tipo favorito</label>

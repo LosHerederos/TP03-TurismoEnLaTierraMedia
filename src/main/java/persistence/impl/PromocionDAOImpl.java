@@ -443,4 +443,17 @@ public class PromocionDAOImpl implements PromocionDAO {
 			throw new MissingDataException(e);
 		}
 	}
+
+	@Override
+	public int updateVisitantes(Promocion promocion) {
+		try {
+			int filas = 0;
+			for (Atraccion atraccion : promocion.getAtracciones()) {
+				filas += atraccionDAO.updateVisitantes(atraccion);
+			}
+			return filas;
+		}  catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
 }

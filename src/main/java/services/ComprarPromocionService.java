@@ -11,33 +11,29 @@ import persistence.UsuarioDAO;
 import persistence.commons.DAOFactory;
 
 public class ComprarPromocionService {
+
 	PromocionDAO promocionDao = DAOFactory.getPromocionDAO();
 	UsuarioDAO usuarioDao = DAOFactory.getUsuarioDAO();
-	ItinerarioDAO itinerarioDao = DAOFactory.getItinerarioDAO();
-	public Map<String, String> comprar(int idUsuario, int idPromocion, int idItinerario) {
+
+	public Map<String, String> comprar(int idUsuario, int idPromocion) {
 		Map<String, String> noCompra = new HashMap<String, String>();
 		Usuario usuario = usuarioDao.findById(idUsuario);
 		Promocion promocion = promocionDao.findById(idPromocion);
-		Itinerario itinerario = itinerarioDao.findById(idItinerario);
-		int dinero = promocion.getCosto();
-		double tiempo = promocion.getTiempo();
-		if (itinerario.getPromociones().contains(promocion)) {
+
+		if (usuario.estaEnElItinerario(promocion)) {
 			noCompra.put("itinerario", "Esta la promocion en el itinerario");
 		}
 		if (promocion.tieneCupoCompleto()) {
-			noCompra.put("atraccion", "No hay cupo disponible");
+			noCompra.put("promocion", "No hay cupo disponible");
 		}
-		if (!usuario.poseeRecursosSuficientes(dinero, tiempo)) {
+		if (!usuario.poseeRecursosSuficientes(promocion.getCosto(), promocion.getTiempo())) {
 			noCompra.put("usuario", "No hay dinero y/o tiempo suficiente");
 		}
 
 		if (noCompra.isEmpty()) {
-			usuario.setPresupuesto(usuario.getPresupuesto()-dinero);
-			usuario.setTiempoDisponible(usuario.getTiempoDisponible()-tiempo);
-			promocion.agregarVisitante();
-			//itinerarioDao.
+			usuario.aceptarSugerencia(promocion);
 			usuarioDao.updatePresupuestoYTiempoDisponible(usuario);
-			promocionDao.update(promocion);
+			promocionDao.updateVisitantes(promocion);
 		}
 
 		return noCompra;

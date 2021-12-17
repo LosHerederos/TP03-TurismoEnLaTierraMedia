@@ -1,50 +1,50 @@
 package controller.promocion;
 
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.Map;
 
-import model.Atraccion;
-import model.Itinerario;
-import model.Promocion;
-import model.PromocionAbsoluta;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import model.Usuario;
-import persistence.AtraccionDAO;
-import persistence.ItinerarioDAO;
-import persistence.PromocionDAO;
-import persistence.UsuarioDAO;
-import persistence.commons.DAOFactory;
+import services.ComprarPromocionService;
+import services.UsuarioService;
 
-public class ComprarPromocionServlet {
-	PromocionDAO promocionDao = DAOFactory.getPromocionDAO();
-	UsuarioDAO usuarioDao = DAOFactory.getUsuarioDAO();
-	ItinerarioDAO itinerarioDao = DAOFactory.getItinerarioDAO();
-	public Map<String, String> comprar(int idUsuario, int idAtraccion, int idItinerario) {
-		Map<String, String> noCompra = new HashMap<String, String>();
-		Usuario usuario = usuarioDao.findById(idUsuario);
-		Promocion promocion = promocionDao.findById(idAtraccion);
-		Itinerario itinerario = itinerarioDao.findById(idItinerario);
-		int dinero = promocion.getCosto();
-		double tiempo = promocion.getTiempo();
-		if (itinerario.getPromociones().contains(promocion)) {
-			noCompra.put("itinerario", "Esta la atraccion en el itinerario");
-		}
-		if (promocion.tieneCupoCompleto()) {
-			noCompra.put("promocion", "No hay cupo disponible");
-		}
-		if (!usuario.poseeRecursosSuficientes(dinero, tiempo)) {
-			noCompra.put("usuario", "No hay dinero y/o tiempo suficiente");
-		}
+@WebServlet("/comprarPromocion.do")
+public class ComprarPromocionServlet extends HttpServlet {
 
-		if (noCompra.isEmpty()) {
-			usuario.setPresupuesto(usuario.getPresupuesto()-dinero);
-			usuario.setTiempoDisponible(usuario.getTiempoDisponible()-tiempo);
-			promocion.agregarVisitante();
-			//itinerarioDao.
-			usuarioDao.updatePresupuestoYTiempoDisponible(usuario);
-			
-			promocionDao.update(promocion);
+	private static final long serialVersionUID = -6458594666025267919L;
+	private ComprarPromocionService comprarPromocionService;
+	private UsuarioService usuarioService;
+	
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		this.comprarPromocionService = new ComprarPromocionService();
+		this.usuarioService = new UsuarioService();
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int idPromocion = Integer.parseInt(req.getParameter("idPromocion"));
+		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
+		int idUsuario = usuario.getIdUsuario();
+		Map<String, String> compra = comprarPromocionService.comprar(idUsuario, idPromocion);
+		usuario = usuarioService.buscar(usuario.getIdUsuario());
+		req.getSession().setAttribute("usuario", usuario);
+		
+		if (compra.isEmpty()) {
+			req.setAttribute("success", "Atraccion comprada");
+		} else {
+			req.setAttribute("compra", compra);
+			req.setAttribute("flash", "No se realizo la compra de la atraccion");
 		}
 
-		return noCompra;
+		RequestDispatcher dispatcher = getServletContext()
+				.getRequestDispatcher("/atracciones.do");
+		dispatcher.forward(req, resp);
 	}
 }
