@@ -62,14 +62,6 @@
 </div> 
 
 <!-- descripcion -->
-<%-- <div class="bienvenida">
-<p class="text-success mb-0 p-2 fs-6 d-flex justify-content-center">
-¡Bienvenido, <c:out value="${usuario.nombre}" />!
-</p>
-<p class="text-light mb-0 d-flex justify-content-center"> Este verano 2021/2022 te esperamos en la Tierra media! </p>
-<p class="text-light mb-0 d-flex justify-content-center"> Segun tus preferencias te recomendamos estas promociones.</p>
-<a href="#" class="btn btn-success">Promociones</a>
-</div> --%>
 
 <div class="card text-center">
   <div class="card-header text-warning">
