@@ -9,10 +9,20 @@
 	
 	<link rel="shortcut icon" href="assets/img/favicon.ico">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+	
 	<style>
 		html, body {
 			height: 100%;
 		}
+		
+		.inicio {
+			font-family: 'MedievalSharp', cursive;
+		}
+		
 		
 		body {
 			display: flex;
@@ -67,8 +77,10 @@
 <!-- NAVBAR -->	
 	<main class="form-signin">		
 		<form action="login" method="post">
+			<div class="inicio">
 			<h1 class="text-white h3 mb-3 fw-normal"><img src="assets/img/favicon.ico" alt="" width="35" height="27" class="d-inline-block align-text-top">
 			Iniciar sesion</h1>
+			</div>
 			<div class="form-floating">
 				<input type="text" name="nombre" class="form-control" id="floatingInput"
 					placeholder="Pepe"> <label for="floatingInput">Nombre</label>

@@ -1,10 +1,29 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+
+<style>
+
+
+
+.titulo {
+	font-family: 'MedievalSharp', cursive;
+	
+}
+.navbar-brand {
+    font-size: 1.60rem;
+}
+
+</style>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<div class="container-fluid">
+		<div class="titulo">
 		<a class="navbar-brand" href="/TP03-TurismoEnLaTierraMedia/index.jsp">
 		<img src="assets/img/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
 		Tierra Media</a>
+		</div>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
 			aria-expanded="false" aria-label="Toggle navigation">
