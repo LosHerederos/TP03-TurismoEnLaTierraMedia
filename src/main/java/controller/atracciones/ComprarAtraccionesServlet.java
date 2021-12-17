@@ -26,11 +26,12 @@ public class ComprarAtraccionesServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		System.out.println("entro");
 		int idAtraccion = Integer.parseInt(req.getParameter("id"));
 		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
 		int idUsuario = usuario.getIdUsuario();
 		Itinerario itinerario = usuario.getItinerario();
+		System.out.println(usuario.getItinerario().getIdItinerario());
 		//Itinerario itinerario = (Itinerario) req.getSession().getAttribute("itinerario");
 		//int idItinerario = itinerario.getIdItinerario();
 		Map<String, String> compra = comprarAtraccionService.comprar(idUsuario, idAtraccion, itinerario.getIdItinerario());

@@ -131,7 +131,7 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 	public void findAtracciones(Itinerario itinerario, List<Atraccion> todasLasAtracciones) {
 		try {
 			String sql = "SELECT *\n"
-				+ "FROM AtraccionesDeItinerario\n"
+				+ "FROM AtraccionesDeItinerarios\n"
 				+ "WHERE idItinerario = ?;";
 
 		Connection conexion = ConnectionProvider.getConnection();
@@ -213,7 +213,7 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 	public boolean existeAtraccionDeItinerario(int idItinerario, int idAtraccion) {
 		try {
 		String sql = "SELECT count(*) AS 'cantidad'\n"
-				+ "FROM AtraccionesDeItinerario\n"
+				+ "FROM AtraccionesDeItinerarios\n"
 				+ "WHERE idItinerario = ? AND idAtraccion = ?\n";
 
 		Connection conexion = ConnectionProvider.getConnection();
@@ -255,7 +255,7 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 
 	private int insertAtraccionDeItinerario(int idItinerario, int idAtraccion) {
 		try {
-		String sql = "INSERT INTO AtraccionesDeItinerario"
+		String sql = "INSERT INTO AtraccionesDeItinerarios"
 				+ "(idItinerario, idAtraccion)"
 				+ "VALUES (?, ?)";
 

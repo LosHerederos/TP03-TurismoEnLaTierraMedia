@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import model.Atraccion;
@@ -17,6 +18,8 @@ public class ComprarAtraccionService {
 	ItinerarioDAO itinerarioDao = DAOFactory.getItinerarioDAO();
 	public Map<String, String> comprar(int idUsuario, int idAtraccion, int idItinerario) {
 		Map<String, String> noCompra = new HashMap<String, String>();
+		List<Atraccion> agregar;
+		agregar = new ArrayList<Atraccion>();
 		Usuario usuario = usuarioDao.findById(idUsuario);
 		Atraccion atraccion = atraccionDao.findById(idAtraccion);
 		Itinerario itinerario = itinerarioDao.findById(idItinerario);
@@ -33,10 +36,14 @@ public class ComprarAtraccionService {
 		}
 
 		if (noCompra.isEmpty()) {
+			agregar.add(atraccion);
 			usuario.setPresupuesto(usuario.getPresupuesto()-dinero);
 			usuario.setTiempoDisponible(usuario.getTiempoDisponible()-tiempo);
 			atraccion.agregarVisitante();
-			//itinerarioDao.
+			usuario.getItinerario();
+			itinerario.setAtracciones(agregar);
+			//itinerario.
+			itinerarioDao.update(itinerario);
 			usuarioDao.updatePresupuestoYTiempoDisponible(usuario);
 			atraccionDao.updateVisitantes(atraccion);
 		}
