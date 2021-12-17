@@ -18,10 +18,10 @@
 				<div class="card-body">
 					<h5 class="card-title"><c:out value="${atraccion.nombre}"></c:out></h5>
 					<p class="card-text"><c:out value="${atraccion.descripcion}"></c:out></p>
-					<p>Costo: ${atraccion.costo} / Tiempo: ${atraccion.tiempo}
+					<p>Costo: ${atraccion.costo} / Tiempo: ${atraccion.tiempo}</p>
 							<c:choose>
 								<c:when
-									test="${!usuario.itinerario.tiene(atraccion) && (usuario.poseeRecursosSuficientes(atraccion.getCosto(), atraccion.getTiempoParaRealizarla()) && !atraccion.tieneCupoCompleto())}">
+									test="${!usuario.estaEnElItinerario(atraccion) && (usuario.poseeRecursosSuficientes(atraccion.getCosto(), atraccion.getTiempoParaRealizarla()) && !atraccion.tieneCupoCompleto())}">
 									<a href="comprarAtraccion.do?idAtraccion=${atraccion.idAtraccion}"
 										class="btn btn-success rounded" role="button">Comprar</a>
 								</c:when>

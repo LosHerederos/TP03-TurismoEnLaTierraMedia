@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Itinerario {
@@ -56,8 +57,20 @@ public class Itinerario {
 		boolean esta = false;
 		if (sugerencia instanceof Atraccion) {
 			esta = this.atracciones.contains((Atraccion) sugerencia);
+			if (!esta) {
+				Iterator<Promocion> promocion = this.promociones.listIterator();
+				while (!esta && promocion.hasNext()) {
+					esta = promocion.next().getAtracciones().contains(sugerencia);
+				}
+			}
 		} else {
 			esta = this.promociones.contains((Promocion) sugerencia);
+			if (!esta) {
+				Iterator<Atraccion> atraccion = ((Promocion) sugerencia).getAtracciones().listIterator();
+				while (!esta && atraccion.hasNext()) {
+					esta = this.atracciones.contains(atraccion.next());
+				}
+			}
 		}
 		return esta;
 	}

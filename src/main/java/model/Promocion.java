@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public abstract class Promocion implements Sugeribles {
 
@@ -156,6 +157,27 @@ public abstract class Promocion implements Sugeribles {
 				atraccion.agregarVisitante();
 			}
 		}
+	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(atracciones, descripcion, eliminado, errores, idPromocion, imagen, nombre, tipoDeAtraccion);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Promocion other = (Promocion) obj;
+		return Objects.equals(atracciones, other.atracciones) && Objects.equals(descripcion, other.descripcion)
+				&& eliminado == other.eliminado && Objects.equals(errores, other.errores)
+				&& idPromocion == other.idPromocion && Objects.equals(imagen, other.imagen)
+				&& Objects.equals(nombre, other.nombre) && tipoDeAtraccion == other.tipoDeAtraccion;
 	}
 
 	@Override

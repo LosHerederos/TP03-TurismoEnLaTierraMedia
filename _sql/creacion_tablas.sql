@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS "Usuarios" (
 );
 CREATE TABLE IF NOT EXISTS "Atracciones" (
 	"idAtraccion"	INTEGER NOT NULL UNIQUE,
-	"nombre"	TEXT NOT NULL UNIQUE,
+	"nombre"	TEXT NOT NULL,
 	"descripcion"	TEXT,
 	"imagen"	TEXT,
 	"costoVisita"	INTEGER,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS "Atracciones" (
 );
 CREATE TABLE IF NOT EXISTS "Promociones" (
 	"idPromocion"	INTEGER NOT NULL UNIQUE,
-	"nombre"	TEXT NOT NULL UNIQUE,
+	"nombre"	TEXT NOT NULL,
 	"descripcion"	TEXT,
 	"imagen"	TEXT,
 	"idTipoDeAtraccion"	INTEGER,
@@ -60,14 +60,14 @@ CREATE TABLE IF NOT EXISTS "AtraccionesDePromociones" (
 );
 CREATE TABLE IF NOT EXISTS "AtraccionesDeItinerarios" (
 	"idItinerario"	INTEGER NOT NULL,
-	"idAtraccion"	INTEGER NOT NULL UNIQUE,
+	"idAtraccion"	INTEGER NOT NULL,
 	FOREIGN KEY("idAtraccion") REFERENCES "Atracciones"("idAtraccion"),
 	FOREIGN KEY("idItinerario") REFERENCES "Itinerarios"("idItinerario"),
 	PRIMARY KEY("idItinerario","idAtraccion")
 );
 CREATE TABLE IF NOT EXISTS "PromocionesDeItinerarios" (
 	"idItinerario"	INTEGER NOT NULL,
-	"idPromocion"	INTEGER NOT NULL UNIQUE,
+	"idPromocion"	INTEGER NOT NULL,
 	FOREIGN KEY("idPromocion") REFERENCES "Promociones"("idPromocion"),
 	FOREIGN KEY("idItinerario") REFERENCES "Itinerarios"("idItinerario"),
 	PRIMARY KEY("idItinerario","idPromocion")

@@ -19,7 +19,20 @@
 				<div class="card-body">
 					<h5 class="card-title"><c:out value="${sugerencia.nombre}"></c:out></h5>
 					<p class="card-text"><c:out value="${sugerencia.descripcion}"></c:out></p>
-					<a href="#" class="btn btn-success">comprar</a>
+					<p>Costo: ${sugerencia.costo} / Tiempo: ${sugerencia.tiempo}</p>
+					<c:choose>
+						<c:when
+							test="${!usuario.estaEnElItinerario(sugerencia) && (usuario.poseeRecursosSuficientes(sugerencia.getCosto(), sugerencia.getTiempo()) && !sugerencia.tieneCupoCompleto())}">
+							<c:set var="rutaComprar" value="${sugerencia.getClass().simpleName.equals('Atraccion') ? 'Atraccion' : 'Promocion' }"></c:set>
+							<c:set var="idSugerencia" value="${sugerencia.getClass().simpleName.equals('Atraccion') ? sugerencia.idAtraccion : sugerencia.idPromocion }"></c:set>
+							<a href="comprar${rutaComprar}.do?id${rutaComprar}=${idSugerencia}"
+								class="btn btn-success rounded" role="button">Comprar</a>
+						</c:when>
+						<c:otherwise>
+							<a href="#" class="btn btn-secondary rounded disabled"
+								role="button">No se puede comprar</a>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</c:forEach>
